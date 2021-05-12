@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			canvas{
+				background: #dbdbdb;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas1" width="400" height="300"></canvas>
+		<br />
+		<button>反转图</button>
+		<button>黑白图</button>
+		<button>灰度图</button>
+		<br />
+		<canvas id="canvas2" width="400" height="300"></canvas>
+	</body>
+	<script type="text/javascript">
+		var context1 = document.getElementById('canvas1').getContext('2d')
+		var context2 = document.getElementById('canvas2').getContext('2d')
+		var oBtn1 = document.getElementsByTagName('button')[0]
+		var oBtn2 = document.getElementsByTagName('button')[1]
+		var oBtn3 = document.getElementsByTagName('button')[2]
+		
+		var img  = new Image()
+		img.src = 'img/an2.jpg'
+		img.onload = function(){
+			context1.drawImage(img,0,0,img.width,img.height,0,0,400,300)
+		}
+		
+		//反转图
+		oBtn1.onclick = function(){
+			context2.clearRect(0,0,400,300)
+			var d = context1.getImageData(0,0,400,300)  //获取原图像资源
+			var pixdata = d.data   //源图像数据（所有的像素点）
+		
+			for(var i=0;i<pixdata.length;i++){
+				pixdata[4*i]=255-pixdata[4*i]  
+				pixdata[4*i+1]=255-pixdata[4*i+1]   
+				pixdata[4*i+2]=255-pixdata[4*i+2]  
+			}
+			
+			context2.putImageData(d,0,0)  
+		}
+		
+//		rgba(10,250,10,0.5)    (10+10+250)/3 = 90  --->0
+//		rgba(0,255,0,0.5)
+		//黑白图
+		oBtn2.onclick = function(){
+			context2.clearRect(0,0,400,300)
+			var d = context1.getImageData(0,0,400,300)  //获取原图像资源
+			var pixdata = d.data   //源图像数据（所有的像素点）
+		
+			for(var i=0;i<pixdata.length;i++){
+				var r = pixdata[4*i]
+				var g = pixdata[4*i+1]
+				var b = pixdata[4*i+2]
+				var color = (r+g+b)/3
+				if(color<127){
+					color = 0
+				}else{
+					color = 255
+				}
+				pixdata[4*i] = pixdata[4*i+1] = pixdata[4*i+2] = color
+			}
+			
+			context2.putImageData(d,0,0)  
+		}
+		
+		//灰度图:0.3R+0.59G+0.11B
+		
+		oBtn3.onclick = function(){
+			context2.clearRect(0,0,400,300)
+			var d = context1.getImageData(0,0,400,300)  //获取原图像资源
+			var pixdata = d.data   //源图像数据（所有的像素点）
+		
+			for(var i=0;i<pixdata.length;i++){
+				var r = pixdata[4*i]
+				var g = pixdata[4*i+1]
+				var b = pixdata[4*i+2]
+				var color = 0.3*r+0.59*g+0.11*b
+				pixdata[4*i] = pixdata[4*i+1] = pixdata[4*i+2] = color
+			}
+			
+			context2.putImageData(d,0,0)  
+		}
+	</script>
+</html>

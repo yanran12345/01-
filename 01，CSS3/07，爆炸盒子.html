@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.smbox{
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -100px;
+				margin-top: -100px;
+				-webkit-transform-style: preserve-3d;
+				/*-webkit-perspective: 2000px;*/
+				-webkit-animation: role1 4s linear;              /*小盒子调用函数时   */
+			/*	-webkit-transform: translateZ(100px);*/
+				-webkit-transform-origin: center center 100px;
+			}
+			@-webkit-keyframes role1{
+				from{
+					/*大盒子有3D空间，小盒子有3D空间，旋转的的时候Z轴需要有100px的移动*/    
+					-webkit-transform: translateZ(100px) rotateX(0) rotateY(0);   /*先移动再旋转,否则不能实现原有功能*/
+				}
+				to{
+					-webkit-transform: translateZ(100px) rotateX(360deg) rotateY(720deg);
+				}
+			}
+			@-webkit-keyframes role2{
+				from{
+					-webkit-transform: rotateX(0) rotateY(0);
+				}
+				to{
+					-webkit-transform: rotateX(360deg) rotateY(720deg);
+				}
+			}
+			.box{
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: darkblue;
+				text-align: center;
+				line-height: 200px;
+				opacity: 0.4;
+			}
+			.box:nth-child(1),
+			img:nth-child(1){
+				-webkit-transform-origin: top center;
+				-webkit-transform: rotateX(90deg);
+			}
+			.box:nth-child(2),
+			img:nth-child(2){
+				-webkit-transform-origin: bottom center;
+				-webkit-transform: rotateX(-90deg);
+			}
+			.box:nth-child(3),
+			img:nth-child(3){
+				-webkit-transform-origin: left center;
+				-webkit-transform: rotateY(-90deg);
+			}
+			.box:nth-child(4),
+			img:nth-child(4){
+				-webkit-transform-origin: right center;
+				-webkit-transform: rotateY(90deg);
+			}
+			.box:nth-child(5){
+				-webkit-transform: translateZ(200px);
+			}
+			.box:nth-child(6),
+			img:nth-child(6){
+				-webkit-transform: translateZ(0px);
+			}
+			img:nth-child(5){
+				-webkit-transform: translateZ(400px);
+			}
+			.bigbox{
+				width: 400px;
+				height: 400px;
+				position: relative;
+				margin: 100px;
+				-webkit-transform-origin: center center 200px;
+				-webkit-animation: role2 6s linear;                /*大盒子第二次调用函数*/
+				-webkit-transform-style: preserve-3d;
+				/*-webkit-perspective: 2000px;*/
+			}
+			.bigbox img{
+				width: 400px;
+				height: 400px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				opacity: 0.3;
+			}
+			.bigbox:hover img:nth-child(1){
+				-webkit-transform: translateY(-100px) rotateX(90deg)  ;   /* 下正右正，还需要旋转一遍*/
+			}
+			.bigbox:hover img:nth-child(2){
+				-webkit-transform: translateY(100px) rotateX(-90deg);   /*因为transfroms会覆盖前面的语法,所以需要重新写一遍*/
+			}
+			.bigbox:hover img:nth-child(3){
+				-webkit-transform: translateX(-100px) rotateY(-90deg);   /*先移动,再旋转才不会有方向的问题*/
+			}
+			.bigbox:hover img:nth-child(4){
+				-webkit-transform: translateX(100px) rotateY(90deg);
+			}
+			.bigbox:hover img:nth-child(5){
+				-webkit-transform: translateZ(500px);     /*会覆盖,要注意覆盖问题*/
+			}
+			.bigbox:hover img:nth-child(6){
+				-webkit-transform: translateZ(-100px);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="bigbox">
+			<img src="img/an1.jpg"/>
+			<img src="img/an2.jpg"/>
+			<img src="img/an3.jpg"/>
+			<img src="img/an4.jpg"/>
+			<img src="img/an2.jpg"/>
+			<img src="img/an3.jpg"/>
+			<div class="smbox">
+				<div class="box">上</div>
+				<div class="box">下</div>
+				<div class="box">左</div>
+				<div class="box">右</div>
+				<div class="box">前</div>
+				<div class="box">后</div>
+			</div>
+		</div>
+	</body>
+</html>

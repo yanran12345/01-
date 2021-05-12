@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+			<button id="btn">按钮</button>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+		// 1.事件中this的使用： 在事件中，指代触发事件的对象
+		
+		
+		/*function f3(){
+			alert(this);
+			console.log(arguments[0]);//函数的参数对象：arguments
+		}
+		document.onclick = f3;  // this指代document对象
+		// call() : 调用函数
+		  // 由$("btn")对象，调用f3函数
+		  
+		f3.call($("btn")) ;//  this指代button   弹出button		
+		f3($("btn"))    //控制台输出按钮的标志
+		
+		f3(); // window.f3() ，前面的window可以省略。      弹出window
+		      // event -- window.event
+		
+		f3.call(document);// 弹出document
+		
+		f3.call(window)*/ //弹出window
+		
+		
+		
+		// 2. 封装一个函数bind:  给对象添加事件
+		/**
+		 * 
+		 * @param {Object} obj  需要绑定事件的对象
+		 * @param {Object} eventName -- 事件的名称，例如： “onclick”
+		 * @param {Object} fn  -- 事件执行的函数
+		 */
+		
+		
+		function bind(obj,eventName,fn){
+			// 判断obj对象中是否有addEventListener的定义,,兼容性的判定
+			if(obj.addEventListener){
+				obj.addEventListener(eventName.substring(2),fn);  //因为所以被截取不要on
+			}else{
+				obj.attachEvent(eventName,fn);
+			}
+		}
+		
+		bind($("btn"),"onclick",function(){
+			console.log("bind.....")               //打印出bind.....
+		})
+		
+	</script>
+</html>

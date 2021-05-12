@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.image{
+				position: relative;
+				width: 288px;
+				height: 180px;
+				width: 288px;
+				height: 180px;
+				overflow: hidden;
+			}
+			img{
+				width: 288px;
+				height: 180px;  /*将原有的图片缩小了10倍*/
+			}
+			.box{
+				width: 30px;
+				height: 30px;
+				background: rgba(0,0,0,0.5);
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			#canvas{
+				background: #dbdbdb;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="image">
+			<img src="img/img.jpg"/>
+			<div class="box">
+				
+			</div>
+		</div>
+		<canvas id="canvas" width="300px" height="300px"></canvas>
+	</body>
+	<script type="text/javascript">
+		var context = document.getElementById('canvas').getContext('2d')
+		var oImage = document.getElementsByClassName('image')[0]
+		var oBox = document.getElementsByClassName('box')[0]
+		
+		var img = new Image()
+		img.src = 'img/img.jpg'
+		img.onload = function(){
+			oImage.onmousemove = function(ev){
+				var x = ev.clientX - oImage.offsetLeft
+				var y = ev.clientY - oImage.offsetTop
+				oBox.style.display = 'block'
+				oBox.style.top = y - 15 + 'px'
+				oBox.style.left = x - 15 + 'px'
+				context.clearRect(0,0,300,300)
+				//原有图片的width：2880px   height：180px;  是坐标距离的10倍
+				context.drawImage(img,(x-15)*10,(y-15)*10,300,300,0,0,300,300)
+			}
+		}
+		
+		oImage.onmouseout = function(){
+			oBox.style.display = 'none'
+		}
+	</script>
+</html>

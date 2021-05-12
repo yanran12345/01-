@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/myquery.js" ></script>
+	</head>
+	<body>
+		<label>省</label>
+		<select id="sheng">
+			<option>请选择</option>
+			<option value="0">四川</option>
+		    <option value="1">重庆</option>
+		    <option value="2">贵州</option>
+		</select>
+		<label>市</label>
+		<select id="shi"></select>
+	</body>
+	<script>
+		var city = [["成都","绵阳","德阳"],["九龙坡区","渝中区"],["贵阳","六盘水","遵义"]];
+		// onchange -- select标签的变化事件
+		$("sheng").onchange = function(){
+			console.log(this.value);
+			if(this.value != "请选择"){
+				var citys = city[this.value];
+				console.log(citys);
+				// 添加新的市之前，先将之前的内容全部清除
+				$("shi").innerHTML = "";
+				for(var i=0 ; i < citys.length ; i++){
+					// 创建option , 添加option
+					var opt = document.createElement("option");
+					opt.setAttribute("value",i);
+					opt.innerText = citys[i];
+					$("shi").appendChild(opt);
+				}
+			}else{
+				// 说没有选择省，就不应该有市出现
+				$("shi").innerHTML = "";
+			}
+		}
+		
+	</script>
+</html>

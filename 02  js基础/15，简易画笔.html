@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.control{
+				position:fixed;
+				top:0;
+				left: 0;
+				z-index: 2;
+			}
+			span{
+				width:10px;
+				height: 10px;
+				border-radius: 50%;
+				position: absolute;
+				background: green;
+				display: inline-block;
+			}
+			.light{
+				width:5px;
+				height: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="control">
+			<button id="bold">粗画笔</button>
+			<button id="light">细画笔</button>
+			<select id="bg" name="">
+				<option value="red">红色</option>
+				<option value="green">绿色</option>
+				<option value="blue">蓝色</option>
+			</select>
+			<button id="eraser">橡皮擦</button>
+		</div>
+		<!--<span></span>-->
+	</body>
+	<script src="js/myQuery.js"></script>
+	<script>
+		// 1.定义全局变量，记录画笔的状态
+		var bold = true;// bold: true表示出画笔，false表示细画笔
+		var flag = true; // flag : true表示画笔，false表示橡皮擦
+		var color = "red" ;// color: 表示span的背景颜色
+		// 2. 单击事件的绑定
+		$("bold").onclick = function(){
+			// 是粗画笔
+			bold  = true;flag = true;
+		}
+		
+		$("light").onclick = function(){
+			// 是细画笔
+			bold = false; flag = true;
+		}
+		$("eraser").onclick = function(){
+			flag = false; // 橡皮擦状态：鼠标移动的时候，就擦去所在地方的span标签
+		}
+		// 3. onchang事件： 实现颜色的切换
+		$("bg").onchange = function(){
+			color = this.value;  // 颜色的获取
+		}
+		
+		// 4. 鼠标的移动事件
+		document.onmousemove = function(e){
+			var ev = e || event;
+			if(flag){ // 画笔
+				// 创建节点对象，设置top,left，backgroundColor值
+				var span = document.createElement("span");
+				var top = ev.clientY  ;
+				var left = ev.clientX;
+				var str = "top:"+top + "px;left:"+left
+				         +"px;background-color:"+color;
+				span.setAttribute("style",str);
+				if(bold==false){       //表示细画笔
+					span.setAttribute("class","light"); // css的叠加性
+				}
+				// 给body添加孩子
+				document.body.appendChild(span);
+				
+			}else{ // 橡皮擦
+				// 事件源： 触发事件的源头--span
+				var srcTag = ev.srcElement || ev.target;
+				console.log(srcTag.nodeName);
+				if(srcTag.nodeName == "SPAN"){
+					srcTag.parentNode.removeChild(srcTag);;// 删除自己
+				}
+				
+			}
+		}
+	    
+	</script>
+</html>

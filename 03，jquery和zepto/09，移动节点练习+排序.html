@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="CSS/base.css"/>
+		<style type="text/css">
+			body{
+				display: flex;
+			}
+			ul,.btn{
+				width: 150px;
+				height: 400px;
+				border: 1px solid red;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+			}
+			li{
+				cursor: pointer;
+			}
+			.active{
+				background: seagreen;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="A">
+			<li>1，控件</li>
+			<li>2，控件</li>
+			<li>3，控件</li>
+			<li>4，控件</li>
+			<li>5，控件</li>
+			<li>6，控件</li>
+		</ul>
+		<div class="btn">
+			<button>添加全部</button>
+			<button>移除全部</button>
+			<button>添加</button>
+			<button>移除</button>
+		</div>
+		<ul class="B">
+			
+		</ul>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+		$('li').each(function(i,ele){   //给每一个li身上添加自定义属性，值为下标，目的就是拿来做排序的条件
+			$(ele).attr('data-num',i)
+		})
+		
+		$('li').click(function(){
+			$(this).toggleClass('active')
+		})
+		$('button').eq(0).click(function(){
+			$('.A li').appendTo($('.B'))
+			$('li').removeClass('active')
+			sortData('.B')
+		})
+		$('button').eq(1).click(function(){
+			$('.B li').appendTo($('.A'))
+			$('li').removeClass('active')
+			sortData('.A')
+		})
+		$('button').eq(2).click(function(){
+			$('.A .active').appendTo($('.B'))
+			$('li').removeClass('active')
+			sortData('.B')
+		})
+		$('button').eq(3).click(function(){
+			$('.B .active').appendTo($('.A'))
+			$('li').removeClass('active')
+			sortData('.A')
+		})
+				
+//		排序的思路:
+//			根据自定义属性的下标,先把选中的li的自定义属性的下标按照从小到大的顺序排序,
+//			以排好顺序的下标作为添加的顺序,依次添加
+		function sortData(obj){
+			var arr = []   //arr=[0,1,2,3,4,5]
+			$(obj+' li').each(function(i,ele){
+				var num = $(ele).attr('data-num')
+				arr.push(num)
+				arr.sort()  //sort方法，默认从小到大的排序
+				for (var i = 0 ; i<arr.length;i++) {
+					$(obj).append($(obj+' li[data-num='+arr[i]+']'))
+				}
+			})
+		}
+		
+	</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		请输入一个时间：
+		<input type="text"  id="date1" value="2019-11-11 0:0:0"/><br>
+		倒计时：
+		<input type="text" id="date2" />
+		<input type="button" value="计算" id="btn"/>
+	</body>
+	<script src="js/myquery.js"> </script>
+	<script type="text/javascript">
+		
+		
+		
+		
+		$("btn").onclick = function(){
+			
+			var timer
+			clearInterval(timer);
+			
+			timer = setInterval(function(){
+			var day1 = new Date();
+			var day2 = $("date1").value;
+			var day2 = new Date(day2);
+			var mills = day2 - day1;
+			if(mills<0){
+			alert(输入时间小于当前时间)
+			clearInterval(timer);
+			return;
+			}else if(mills==0){
+				alert("当前时间与输入时间相等")
+				clearInterval(timer);
+				return
+		}
+		
+		var second = mills/1000;
+		var tian = Math.floor(second/(24*60*60));
+		var xiaoshi  = Math.floor(second % (60*60*24) /(60*60));
+	      console.log("小时"+xiaoshi)
+		var fenzhong  = Math.floor( second %(60*60)/60);
+					
+		var miao = Math.floor(second % 60);
+					
+					
+		var timeStr = tian + "天，"+xiaoshi +":"+fenzhong + "：" + miao;
+		$("date2").value = timeStr;
+			},1000)
+		}
+		
+	</script>
+</html>

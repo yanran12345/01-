@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				background: #dbdbdb;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="300px" height="300px"></canvas>
+	</body>
+	<script type="text/javascript">
+		var context = document.getElementById('canvas').getContext('2d')
+		
+		var img = new Image()   //实例化一个图像对象
+		img.src = 'img/an2.jpg'    //设置图像路径
+		img.onload = function(){     //执行绘制方法
+			context.drawImage(img,350,270,100,100,50,50,200,200)
+//			drawImage(图片对象，截取横坐标，截取纵坐标，截取宽度，截取高度 |||||| 在画布中横坐标，画布纵坐标，绘制的宽度，绘制的高度)
+		}
+	</script>
+</html>

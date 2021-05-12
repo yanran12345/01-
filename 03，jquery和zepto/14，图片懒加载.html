@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			img{
+				display: block;
+				width: 100px;
+				margin: auto;
+				border: 1px solid red;
+				margin-bottom: 700px;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="img/1-1.png"/>
+		<img src="" data-src="img/2-2.png"/>
+		<img src="" data-src="img/3-3.png"/>
+		<img src="" data-src="img/4-4.png"/>
+		<img src="" data-src="img/5-5.png"/>
+		<img src="" data-src="img/6-6.png"/>
+	</body>
+	<script src="js/jquery-3.4.1.js"></script>
+	<script type="text/javascript">
+		var H = $(window).height()     //窗口的高度
+		$(window).on('scroll',function(){
+			var t = $(window).scrollTop()    //滚动条离顶部的高度
+			$('img').each(function(i,ele){
+				var eleT = $(ele).offset().top   //每张图片离顶部的高度7、900、1800.......
+//				console.log(eleT)     //滚动执行一次，for循环就执行7次
+				if(H+t>=eleT){ //同时也可以写成eleT<=H+t
+					var str = $(ele).attr('data-src')
+					$(ele).attr('src',str)
+				}
+			})
+		})
+	</script>
+</html>

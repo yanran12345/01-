@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				padding: 30px;
+				border: 1px solid darkgoldenrod;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1">
+			<div id="box2">
+				<div id="box3"></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+		// 事件冒泡阶段：
+		//    某个事件被触发之后，该事件源的包裹元素上绑定的同类事件，都会被触发，
+		//    这种时间的处理机制，被称位事件的冒泡。
+		
+		document.addEventListener("click",function(){
+			console.log("doucument ....")
+		},false);
+		
+		$("box1").addEventListener("click",function(){
+			console.log("box1 ....")
+		},false);
+//		// dbclick不是box3的同类事件，不会执行
+//		$("box2").addEventListener("dbclick",function(){
+//			console.log("box2 ....")
+//		},false);
+		
+//		$("box3").addEventListener("click",function(e){
+//			var ev = e|| event;
+//			console.log(ev)
+//			
+//		},false);
+		
+		// 怎么阻止事件冒泡
+		// cancel - 取消， bubble - 冒泡
+		//  标准浏览器：
+		// cancelBubble: false - 表示支持冒泡
+		// cancelBubble: true -表示阻止冒泡
+		// ie低版本：
+		// event.stopPropagation() -- 表示阻止冒泡
+		
+		
+		$("box3").addEventListener("click",function(e){
+			var ev = e|| event; // event对象的兼容性处理
+			
+			// 事件冒泡的兼容性写法
+			if(ev.stopPropagation){ // 表示event对象中如果有stopPropagation函数定义
+				ev.stopPropagation();
+			}else{// 表示event对象中没有定义stopPropagation()函数
+				ev.cancelBubble = true;
+			}
+			console.log(ev.cancelBubble);
+		},false);
+		
+//		$("box3").addEventListener("click",function(e){
+//			var ev = e|| event; // event对象的兼容性处理
+//			
+//			// 事件冒泡的兼容性写法
+//         ***不能使用ev.cancelBubble这个进行判断，因为其默认值就是false
+//			if(ev.cancelBubble){ // 表示event对象中如果有stopPropagation函数定义
+//				ev.xxx
+//			}else{// 表示event对象中没有定义stopPropagation()函数
+//				ev.cancelBubble = true;
+//			}
+//			console.log(ev.cancelBubble);
+//		},false);
+		
+		
+		
+		
+	</script>
+</html>

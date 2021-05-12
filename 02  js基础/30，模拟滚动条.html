@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#outer{
+				width:20px;
+				height: 400px;
+				position: relative;
+				background: #D8D8D8;
+				float: left;
+			}
+			#inner{
+				width: 20px;
+				height: 40px;
+				background: red;
+				position: absolute;
+				top:0;
+				left: 0;
+			}
+			#cont{
+				background:  cornflowerblue;
+				height: 400px;
+				width: 200px;
+				float: left;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="outer">
+			<div id="inner"></div>
+		</div>
+		<div id="cont"></div>
+	</body>
+	<script src="js/myQuery.js"></script>
+	<script>
+		 var H = $("cont").offsetHeight;//全局变量
+		 $("inner").onmousedown = function(e){
+		 	var en = e || event;
+		 	// 1. 鼠标按下的位置
+		 	var beginY = en.clientY;
+		 	// 2. 计算inner能够滚动的范围 【0，maxT】
+		 	var maxT = $("outer").offsetHeight - $("inner").offsetHeight;
+		 	// 3. 鼠标按下的时候，inner的top值
+		 	var T = $("inner").offsetTop;
+		 	
+		 	// 4. 鼠标移动： 移动的时候，修改inner的top值，
+		 	document.onmousemove = function(e1){
+		 		var e2 = e1 || event;
+		 		var newTop = e2.clientY  - (beginY - T);
+		 		if(newTop <0){
+		 			newTop = 0 ;
+		 		}else if(newTop > maxT){
+		 			newTop = maxT
+		 		}
+		 		// 修改inner的top值
+		 		$("inner").style.top = newTop +"px";
+		 		// 修改cont的高度
+		 		// cont变化的比例
+		 		var x  =Math.abs( newTop / maxT );// Math.abs() -- 绝对值
+		 		// 是否可以每次取cont现在的高度？？？不可以
+		 		var reduceH = H * x; // 表示cont需要减少的高度
+		 		var newH = H - reduceH ; // 表示cont应该设置的新高度
+		 		$("cont").style.height = newH + "px";
+		 	}
+		 	
+		 	document.onmouseup = function(){
+		 		document.onmousemove = null;
+		 	}
+		 }
+		
+	</script>
+</html>
+ 

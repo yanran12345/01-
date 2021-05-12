@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.outer{
+				width: 400px;
+				height: 400px;
+				border: 1px solid red;
+				position: relative;
+			}
+			.inner{
+				width: 100px;
+				height: 100px;
+				background: seagreen;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<button>开始</button>
+		<button>停止</button>
+		<div class="outer">
+			<div class="inner"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+		$('button').eq(0).click(function(){
+			$('.inner').animate({
+				'left':'300px'
+			},1000).animate({
+				'top':'300px'
+			},1000).animate({
+				'left':0
+			},1000)
+		})
+		$('button').eq(1).click(function(){
+//			$('.inner').stop(true)   //停在当前位置
+//			$('.inner').stop(false,true)   //跳至当前动画片段的终点，并执行下一片段，在终点停止
+//			$('.inner').finish()   //结束动画
+		})
+	</script>
+</html>

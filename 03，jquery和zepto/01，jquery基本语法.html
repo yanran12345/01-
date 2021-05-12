@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 100px;
+				height: 100px;
+				background: red;
+				margin-bottom: 2px;
+			}
+			.active{
+				background: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div id="box1"></div>
+		<div class="box2"></div>
+		<input type="" name="" id="" value="我是默认文字" />
+		<button>点击</button>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+	<script type="text/javascript">
+	
+		//1，获取元素对象
+		$('div').css('background','blue')
+		$('#box1').css('background','green')
+		$('.box2').css('background','gold')
+		
+		// 2,事件绑定
+		$('#box1').on('click',function(){
+			alert(1)
+		})
+		$('.box2').click(function(){
+			alert(1)
+		})
+		
+		$('.box2').mousemove(function(){
+			$('.box2').css('width','200px')
+		})
+		$('.box2').on('mousemove',function(){
+			$('.box2').css('width','200px')
+		})
+
+		// 3,操作属性
+		$('.box2').attr('class','box2 active')
+		$('.box2').attr('num','2')
+		
+		// 4,this对象
+		$('div').click(function(){
+		alert($(this).index())    //index(),指当前元素相对于兄弟节点的下标
+		})
+		
+		// 5,操作class名称
+		$('.box2').click(function(){
+//			$('.box2').addClass('active')  
+//			$('.box2').removeClass('active')
+				$('.box2').toggleClass('active')   //自动切换
+		})
+		
+		// 6,input框的value值
+		$('button').click(function(){
+//			alert($('input').val())
+			$('input').val('我是新的文字')
+		})
+
+		// 7,html(),text()
+		$('div').click(function(){
+//			$(this).html('我是html插入的文字')
+//			$(this).html('<h4>我是html插入的文字h4</h4>')
+			$(this).text('<h4>我是html插入的文字h4</h4>')
+		})
+		
+		// 8,eq() 指的就是下标
+		$('div').eq(1).click(function(){
+			alert(1)
+		})
+	</script>
+</html>

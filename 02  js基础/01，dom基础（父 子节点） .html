@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<link rel="stylesheet" href="css/base.css" />-->
+		<style>
+			div{
+				background: red;
+			}
+			#list{
+				padding: 5px 0;
+			}
+			li{
+				margin: 20px;
+			}
+			p{
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<ul id="list">
+				<li>
+					我是文字
+					<a href="javascript:;" >删除</a>
+				</li>
+				<li>
+					我是文字
+					<a href="javascript:;">删除</a>
+				</li>
+				<li>
+					我是文字
+					<a href="javascript:;">删除</a>
+				</li>
+				<li>
+					我是文字
+					<a href="javascript:;">删除</a>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<p>
+				<span id="h3">只是一个测试</span>
+				<span id="h4"></span>
+			</p>
+		</div>
+	</body>
+	<script src="js/myquery.js"></script>
+	<script>
+	      
+		
+		var lis = document.getElementsByTagName("li");
+		var  as1 = document.getElementsByTagName("a");
+		
+		
+		$("h3").onclick = function(){
+			$("h3").offsetParent.style.display= "none";   //删除自己<span></span>的父标签<p></p>	
+		}
+		// 练习： 单击删除，则删除掉对应的li
+		for(var i=0;i<as1.length ;i++){
+			as1[i].onclick = function(){
+				this.parentNode.style.display = "none";     //隐藏自己<a></a>字父标签<li></li>
+			}
+		}
+		
+		for(var i=0;i<as1.length ;i++){
+			as1[i].index = i;//自定义属性的设置 --- 一一对应的关系
+			as1[i].onclick = function(){                     //删除自己的<li></li>
+				var in1 = this.index;
+				lis[in1].style.display = "none";
+			}
+		}
+		// dom: document object model
+		// 复习： 
+		//    document.getElementById(id)   --- 一个节点
+		//    document.getElementsByClassName(class) --- 节点数组 
+		//   document.getElementsByTagName(tag)   --- 节点数组
+		
+		// 1. 找所有的孩子   -- childNodes    node是节点的意思
+		//              -- 所有的孩子，
+		包括空文本节点
+		var ul  = document.getElementById("list");
+		var ulChild = ul.childNodes;
+		console.log(ulChild)
+		console.log(ulChild.length)    //length的长度为9
+		//  ** 循环遍历ul的孩子们，对元素节点设置背景颜色为绿色
+		for(var i=0; i < ulChild.length ; i++){
+			console.log(ulChild[i].nodeName)  //nodeName --节点的名字(li,#text)
+			if(ulChild[i].nodeName == 'LI'){
+				ulChild[i].style.background = "green";
+			}                                //上下两个if表示的一样
+            if(ulChild[i].nodeType == 1){ // nodeType -- 节点的类型为1相当于li
+            	ulChild[i].style.background = "pink";//元素节标签名字为1,属性节点的名字为2,文本节点的名字为text为3,document为9
+            }
+		}
+		
+		// 2. 找所有孩子   -- children 
+		//             -- 不包含空文本节点
+		  var ul = document.getElementById("list");
+		  var ulchild = ul.children;
+		  console.log(ulchild)
+		  console.log(ulchild.length)  //length的长度为4
+		
+		// first : 第一个， last：最后一个 ， next： 下一个
+		// previous： 上一个 ， element : 元素    siblings是兄弟姐妹的意思
+		
+		// 3.  firstChild 
+		//     lastChild
+		//            --- 找到的是空白文本节点
+		//     firstElementChild
+		//     lastElementChild
+		//            --- 找到的是元素节点
+		console.log("first：" + ul.firstChild.nodeName)  //第一个文本
+		console.log("last:" + ul.lastChild.nodeName)      //最后一个文本
+		
+		console.log("first element：" + ul.firstElementChild);  //第一个li
+		console.log("last element:" + ul.lastElementChild)      //最后一个li
+		
+		// 4. nextSiblings  下一个       siblings是兄弟姐妹的意思
+		//    previousSiblings   上一个
+		//          --- 找到是空文本节点
+		console.log("next:" + ul.firstChild.nextSibling);//  第一个li
+		console.log("previous:" + ul.lastElementChild.previousSibling);// 倒数第二个#text
+		
+		console.log("next element:"+ ul.firstChild.nextElementSibling)// 第一个li
+		console.log("previous element:" + ul.lastElementChild.previousElementSibling)//倒数第二个li
+		
+		
+		//  5 找父节点  (不需要看有没有绝对定位)
+		var parentnUl = ul.parentNode;
+		parentnUl.style.backgroundColor = "green";  //<div>
+		
+		var body = ul.parentNode.parentNode;
+		body.style.backgroundColor = "yellow" //body.bgColor  ="pink";    <body>
+		
+		
+		//  6找父节点(需要看有没有绝对定位)没有就是body
+		var par = ul.offsetParent;
+		par.style.backgroundColor = "blueviolet";   // <body>
+		
+		
+		var h3 = document.getElementById("h3");
+		/*h3.style.backgroundColor = "burlywood"; */  //<h3>
+		var parh3 = h3.offsetParent;
+		parh3.style.background = "yellowgreen";  //h3的父标签<p>
+		
+		
+		// 7 是否有孩子节点
+		
+		console.log(h3.hasChildNodes());  //true
+		var h4 = document.getElementById("h4");
+		console.log(h4.hasChildNodes());   //false
+		
+	</script>
+</html>

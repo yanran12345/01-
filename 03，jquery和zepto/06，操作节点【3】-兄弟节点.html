@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			li{
+				border: 1px solid red;
+			}
+			.active{
+				background: #666;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</body>
+	<script src="js/jquery-3.4.1.js"></script>
+	<script type="text/javascript">
+//		first()  last()  prev()  next()  prevAll()  nextAll()  siblings()
+//		$('li').first().addClass('active')
+//		$('li').last().addClass('active')
+		$('li').click(function(){
+//			$(this).prev().addClass('active')   //兄弟节点的前一个
+//			$(this).next().addClass('active')   //兄弟节点的下一个
+//			$(this).nextAll().addClass('active')   //兄弟节点的下面的所有节点
+//			$(this).prevAll().addClass('active')   //兄弟节点的上面的所有节点
+//			$(this).siblings().addClass('active')   //除了当前节点外所有节点
+		})
+	</script>
+</html>

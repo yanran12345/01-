@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<style type="text/css">
+			
+			html{
+				background: lightblue;
+			}
+			.box1{
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				/*background: transparent;*/
+				border: 8px solid #222222;
+				position: relative;
+				z-index: 1;
+			}
+			.box2{
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background-image: repeating-radial-gradient(#222222 0%,#222222 45%,#fff 45%,#fff 60%,#222222 60%,#222222 100%);
+				position: absolute;
+				top: 15px;
+				left: 15px;
+			}
+			.box3 div{
+				width: 8px;
+				height: 80px;
+				background: #222;
+				position: absolute;
+				top: 0px;
+				left: 36px;
+			}
+			.line2{
+				-webkit-transform: rotate(60deg);
+			}
+			.line3{
+				-webkit-transform: rotate(120deg);
+			}
+			.sm-box{
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background: repeating-radial-gradient(#222222 0%,#222222 20%,#fff 20%,#fff 35%,#222222 35%,#222222 100%);
+				position: absolute;
+				top: 85px;
+				left: 50px;
+				-webkit-animation: moveBox 4s linear infinite;
+			}
+			@-webkit-keyframes moveBox{
+				from{
+					-webkit-transform: rotate(0);
+				}
+				to{
+					-webkit-transform: rotate(360deg);
+				}
+			}
+			.bg-box{
+				position: absolute;
+				top: 50px;
+				left: 200px;
+				-webkit-animation: moveBox 4s linear infinite;
+				
+			}
+			.l1,.l2{
+				width: 168px;
+				height: 4px;
+				background: repeating-linear-gradient(to right,#222 0%,#222 2%,transparent 2%,transparent 4%);
+				position: absolute;
+				top: 83px;
+				left: 75px;
+				-webkit-transform-origin: left center;
+				-webkit-transform: rotate(-11deg);
+			}
+			.l1{
+				-webkit-animation: l1 linear 2s infinite;
+			}
+			@-webkit-keyframes l1{
+				from{
+					background-position: 0 0;
+				}
+				to{
+					background-position: 175px 0;
+				}
+			}
+			.l2{
+				top:132px;
+				left: 75px;
+				-webkit-transform: rotate(3deg);
+				-webkit-animation: l2 linear 2s infinite;
+			}
+			@-webkit-keyframes l2{
+				from{
+					background-position: 0 0;
+				}
+				to{
+					background-position: -175px 0;
+				}
+			}
+			.tip1,.tip2{
+		
+				width: 0;
+				height: 0;
+				border: 4px solid;
+				border-color: transparent transparent #222 transparent;  
+				position: absolute;
+				top: -7px;
+				left: 27px;
+				-webkit-transform-origin: -2px 32px;
+			}
+			.tip2{
+				top: -6px;
+				left: 56px;
+				-webkit-transform-origin: -8px 54px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="bg-box">
+			<div class="box1">
+				
+				<div class="box3">
+					<div class="line1"></div>
+					<div class="line2"></div>
+					<div class="line3"></div>
+				</div>
+				
+				<div class="box2"></div>
+			</div>
+		</div>
+		<div class="sm-box"></div>
+		<div class="l1"></div>
+		<div class="l2"></div>
+	</body>
+	<script type="text/javascript">
+		var oSmBox = document.getElementsByClassName('sm-box')[0];
+		var oBgBox = document.getElementsByClassName('bg-box')[0];
+		var str1 = '';
+		for (var i=0;i<12;i++) {
+				str1 += '<div class="tip1" style="-webkit-transform: rotate('+i*30+'deg);'
+				+'"></div>';
+			}
+		var str2 = '';
+		for (var i=0;i<24;i++) {
+				str2 += '<div class="tip2" style="-webkit-transform: rotate('+i*15+'deg);"></div>';
+			}
+		oSmBox.innerHTML += str1;
+		oBgBox.innerHTML += str2;
+		
+	</script>
+</html>

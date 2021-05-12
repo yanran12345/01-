@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				height: 190px;
+				width: 40px;
+				background: red;
+				top :100px;
+				margin: 0 auto;
+				background-image: url(img/timgT.jpg);
+				background-repeat: no-repeat;
+			}
+			.line{
+				height: 40px;
+				width: 164px;
+				background: red;
+				float: left;
+				margin: 20px;
+				margin-top:50px;
+			}
+			#fl{background:url(img/timgl.jpg)}
+			#fr{background:url(img/timgr.jpg);
+			    float: right;}
+		</style>
+	</head>
+
+	<body>
+		<div id="box"></div>
+		<div id="fl" class="line"></div>
+		<div id="fr" class="line"></div>
+	</body>
+	<script type="text/javascript" src="js/myQuery.js"></script>
+	<script type="text/javascript">
+		dragChangeSize($("box"),"clientX","offsetLeft","width");
+		dragChangeSize($("fl"),"clientY","offsetTop","height");
+		dragChangeSize($("fr"),"clientY","offsetTop","height");
+		
+		// 定时器： 每个50毫秒，检查一次，div的宽度是否大于等于600.如果是，则直接设置为600px
+		var i = 0 ;
+		var timer =  setInterval(function(){
+			if($('box').offsetWidth >= 600){
+				$('box').style.width = "600px";
+				document.onmousemove = null;// 清除鼠标移动事件
+				clearInterval(timer); // 停止定时器
+			}
+			console.log(i++);
+		},10)
+		
+		
+	</script>
+
+</html>

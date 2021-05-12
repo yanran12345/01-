@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 100px;
+				height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<button>收起</button>
+		<button>展开</button>
+		<div class="">
+			
+		</div>
+	</body>
+	<script src="js/zepto.min.js"></script>
+	<script src="js/fn.js"></script>
+	<script type="text/javascript">
+		$('div').abc()
+		$('button').eq(0).click(function(){
+			$('div').slideUp()
+		})
+		$('button').eq(1).click(function(){
+			$('div').slideDown()
+		})
+	</script>
+</html>

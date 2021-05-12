@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				height: 100%;
+				width: 100%;
+			}
+			div{
+				width: 100%;
+				height: 100px;
+				font-size: 40px;
+				color: #fff;
+				background: salmon;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="">
+			我是div
+		</div>
+	</body>
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script src="js/touch.js"></script>
+	<script type="text/javascript">
+//		手指按下的相关事件: singleTap  longTap  doubleTap
+//		$('div').singleTap(function(){
+//			console.log('singleTap')
+//		})
+//		$('div').longTap(function(ev){
+//			console.log('longTap')
+//		})
+//		$('div').doubleTap(function(){
+//			console.log('doubleTap')
+//			
+//		})
+		
+		
+//		拖动的相关事件 : swipe  swipeUp  swipeRight
+		$('div').swipe(function(){
+			console.log('swipe')
+		})
+		$('div').swipeLeft(function(){
+			console.log('left')
+		})
+		$('div').swipeDown(function(){
+			console.log('down')
+		})
+
+//		touchstart  touchmove   touchend
+//		$('div').on('touchstart',function(){
+//			console.log('start')
+//		})
+//		$('div').on('touchmove',function(){
+//			console.log('move')
+//		})
+//		$('div').on('touchend',function(){
+//			console.log('end')
+//		})
+		
+	</script>
+</html>

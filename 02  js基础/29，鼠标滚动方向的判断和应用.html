@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width:200px;
+				height: 50px;
+				background: limegreen;
+			}
+		</style>
+	</head> 
+	<body>
+		<div id="box"></div>
+	</body>
+	<script src="js/myquery.js"></script>
+	<script>
+	   // 练习：向上滚动： div高度减少5px(高度最少不能少于5px), 向下滚动，div高度增加5px
+		
+		function myScroll(ev){
+				var en = ev || event;
+				var b = true ;
+				if(ev.wheelDelta){
+
+					ev.wheelDelta == 120 ? b = true : b = false
+				}else if(ev.detail){
+
+					 ev.detail== 3 ?b = false : b=true
+				}
+		
+				if(b){
+					var h = parseInt(getStyle($("box"),"height"));
+					$("box").style.height = h + 5 +"px";
+				}else{
+					var h = parseInt(getStyle($("box"),"height"));
+					if(h<=10){
+						h=10;
+					}
+					$("box").style.height = h - 5 +"px";
+					
+					/*if(en.preventDefault){
+							en.preventDefault()   //阻止浏览器的滚动事件
+					}*/
+				}
+				/*return false;*/
+			}	
+			
+			
+			 document.onmousewheel = function(e){
+			 	myScroll(e);                              //注意函数的调用e
+			 }
+			 document.addEventListener("DOMMouseScroll",function(e){
+			 	myScroll(e);
+			 },false)
+		
+	</script>
+</html>

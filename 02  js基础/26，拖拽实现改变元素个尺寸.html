@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	<style type="text/css">
+			div {
+				height: 200px;
+				width: 100px;
+				background: cadetblue;
+				position: absolute;
+				top: 200px;
+				left: 200px;
+			}
+			
+			#box1 {
+				top: 410px;
+			}
+			/*#box div{
+				height: 100%;
+				width: 10px;
+				background: #000;
+			}
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}*/
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+		</div>
+		<!--<div id="box1">
+		</div>-->
+	</body>
+	<script src="js/myQuery.js"></script>
+	<script>
+		// 拖拽原理：  
+		//     onmousedown -- 监听鼠标按下事件，完成选中功能【被拖拽的目标对象】
+		//     onmousemove -- 监听鼠标移动事件， 被拖拽的对象跟随鼠标移动
+		//     onmouseup   -- 监听鼠标弹起事件， 取消onmousemove
+		
+		// 要求： 根据指定的方向，改变对象的尺寸
+		//  -- obj： 拖拽的对象
+		//  -- client :  clientX-左右 , clinetY- 上下
+		//  -- offset :  offsetTop . offsetLeft 
+	
+		//  -- wh     : width , height -- 
+		
+		
+		
+	//	dragChangeSize($("box"),"clientY","offsetTop","height");//上下下移动
+		dragChangeSize($("box"),"clientX","offsetLeft","width");//左右移动
+		
+		
+		function dragChangeSize(obj,client,offset,wh){
+			obj.onmousedown = function(e){
+				var en = e || event;
+				// 1. 记录鼠标按下的时候的初始数据
+//				var L = this.offsetLeft;
+//				var T  = this.offsetTop;
+                var D  = this[offset]; // top/left值
+                
+//				var W = parseInt(getStyle(this,"width"));
+//				var H = parseInt(getStyle(this,"height"));
+//				
+				var WH  = parseInt(getStyle(obj,wh));
+				
+				
+//				var beginX  = en.clientX;
+//				var beginY  = en.clientY;
+				var begin  = en[client];// 获取到鼠标的初始位置
+				
+				// 2. 判断方向 -- 以距离边界30px为参考点
+//				var b ; // 用于表示拖拽的方向
+//				if(beginX >L && beginX < L+30){
+//					b = "left" ;// 左边
+//				}else if(beginX < L+W && beginX > L+W-30){
+//					b = "right";// 右边
+//				}else if(beginY > T && beginY < T+30 ){
+//					b = "up";// 上边
+//				}else if(beginY < T+H && beginY > T+H-30){
+//					b = "down"
+//				}
+
+                var b;	
+                var tOrL = "";
+				if(begin > D  && begin < D+30){
+					 //b = left 或 up 
+					 if(offset == "offsetLeft"){ // offsetLeft和左右相关
+					 	b = "left";
+					 	tOrL = "left"
+					 }else{
+					 	b = "up";
+					 	tOrL = "top";
+					 } 
+					 
+				}else if(begin > D+WH - 30 && begin < D+WH){
+					// b = right 或 down
+					if(offset == "offsetLeft"){// offsetLeft和左右相关
+						b = "right"
+					}else{
+						b = "down"
+					}
+				}				
+				// 3. 鼠标移动事件，改变obj的相关的css
+				document.onmousemove = function(e1){
+					var e2 = e1 || event;
+//					switch (b){
+//						case "left":
+//						    var newLeft = L - (beginX - e2.clientX)
+//						    var newW   = W + (beginX - e2.clientX)
+//						    obj.style.left = newLeft + "px";
+//						    obj.style.width = newW + "px";
+//							break;
+//						case "right":
+//						     var newW   = W - (beginX - e2.clientX)
+//						      obj.style.width = newW + "px";
+//							break;
+//						case "up":
+//						      var newTop = T - (beginY - e2.clientY);
+//						      var newH =  H  + (beginY -e2.clientY)
+//						      obj.style.top = newTop + "px";
+//						    obj.style.height = newH + "px";
+//							break;
+//						case "down":
+//						     var newH =  H  - (beginY -e2.clientY)
+//						      obj.style.height = newH + "px";
+//							break;
+//					}
+					if(b=="left" || b == "up"){
+						var newLT = D - (begin - e2[client]);
+						obj.style[tOrL] = newLT +"px";
+						var newWH = WH +  (begin - e2[client]);						
+						obj.style[wh] = newWH + "px";
+					}else if(b == "right" || b == "down"){
+						var newWH = WH - (begin - e2[client]);
+						obj.style[wh] = newWH + "px";
+					}
+					
+					
+				}
+
+				document.onmouseup = function(){
+					  document.onmousemove = null;
+				}
+				// 阻止浏览器的默认事件
+				return false;
+			}
+		}
+		
+	</script>
+</html>

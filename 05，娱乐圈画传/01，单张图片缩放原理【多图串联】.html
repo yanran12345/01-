@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				height: 100%;
+			}
+			#canvas{
+				background: #dbdbdb;
+			}
+			#btn{
+				width: 100px;
+				height: 100px;
+				line-height: 100px;
+				text-align: center;
+				color: #fff;
+				background: seagreen;
+				border-radius: 50%;
+				position: fixed;
+				bottom: 10%;
+				left: 50%;
+				margin-left: -50px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="300" height="300"></canvas>
+		<div id="btn">按钮</div>
+	</body>
+	<script type="text/javascript" src="js/imgdata.js" ></script>
+	<script type="text/javascript">
+		var oC = document.getElementById('canvas')
+		var context = oC.getContext('2d')
+		
+		oC.width = document.body.offsetWidth
+		oC.height = document.body.offsetHeight
+		
+//		截取x坐标的范围: 870~0
+//		截取y坐标的范围: 415~0
+//		截取w宽度的范围: 275~1875
+//		截取h高度的范围: 450~3015
+
+//		假设,每点击一次,都让截取的x坐标减少num=5
+//		y减少多少?   ？/415=num/870   -->   y减少的部分是：415*(num/870)
+//		w增加多少?   ？/（1875-275）= num/870   -->   w增加的部分是：（1875-275）*(num/870)
+//		h增加多少?   ？/（3015-450）= num/870   -->   h增加的部分是：（3015-450）*(num/870)
+		
+		var n = 0 // 标志当前图片的下标，标志图片切换
+		var img = new Image()
+		img.src = imgArr[n].imgUrl
+		img.onload = function(){
+			context.drawImage(img,imgArr[n].x,imgArr[n].y,imgArr[n].w,imgArr[n].h,0,0,oC.width,oC.height)
+		}
+		
+		var oBtn = document.getElementById('btn')
+		var num=5
+		var timer = null
+		oBtn.onmousedown = function(){
+			timer = setInterval(function(){
+				var sX = imgArr[n].x-num
+				var sY = imgArr[n].y-imgArr[n].y*(num/imgArr[n].x)
+				var sW = imgArr[n].w+(1875-imgArr[n].w)*(num/imgArr[n].x)
+				var sH = imgArr[n].h+(3015-imgArr[n].h)*(num/imgArr[n].x)
+				context.drawImage(img,sX,sY,sW,sH,0,0,oC.width,oC.height)
+				if(sX<=0){
+					n++
+					if(n>=5){
+						n=1
+					}
+					num = 5
+					img.src = imgArr[n].imgUrl
+				}else{
+					num+=5
+				}
+				
+			},20)
+		}
+		oBtn.onmouseup = function(){
+			clearInterval(timer)
+		}
+	</script>
+</html>

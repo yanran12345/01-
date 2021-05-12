@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			canvas{
+				background: #dbdbdb;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas1" width="400" height="300"></canvas>
+		<br />
+		<button>点击</button>
+		<br />
+		<canvas id="canvas2" width="400" height="300"></canvas>
+	</body>
+	<script type="text/javascript">
+		var context1 = document.getElementById('canvas1').getContext('2d')
+		var context2 = document.getElementById('canvas2').getContext('2d')
+		var oBtn = document.getElementsByTagName('button')[0]
+		
+		var img  = new Image()
+		img.src = 'img/an2.jpg'
+		img.onload = function(){
+			context1.drawImage(img,0,0,img.width,img.height,0,0,400,300)
+		}
+		//获取图像的像素数据（源图像数据）
+		oBtn.onclick = function(){
+			var d = context1.getImageData(0,0,400,300)  //获取原图像资源
+			var pixdata = d.data   //源图像数据（所有的像素点）
+//			console.log(pixdata.length)
+			
+//			context2.putImageData(d,50,50)//参数必须传三个（图像资源，context2画布中的偏移量想，y）
+			//（图像资源，context2画布中的偏移量想，y，新的截取的图像的偏移量想，y，截取的宽度，高度）
+			
+//			for(var i=0;i<pixdata.length;i++){
+////				pixdata[4*i]=0   //将图像像素点中的红色全部去掉
+////				pixdata[4*i+1]=0   //将图像像素点中的绿色全部去掉
+//				pixdata[4*i+2]=0   //将图像像素点中的蓝色全部去掉
+//			}
+			
+			for(var i=0;i<pixdata.length;i++){
+				
+				pixdata[4*i]=255-pixdata[4*i]  
+				pixdata[4*i+1]=255-pixdata[4*i+1]   
+				pixdata[4*i+2]=255-pixdata[4*i+2]  
+			}
+			
+			
+			context2.putImageData(d,0,0)  
+		}
+	</script>
+</html>

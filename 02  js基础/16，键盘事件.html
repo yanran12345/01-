@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		div{
+				position: absolute;
+                top:50px;
+                left: 50px;
+                background-color: greenyellow;
+                border-radius: 50%;
+                width:30px;
+                height: 30px;
+			}
+	  </style>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+		// 1. 键盘事件：
+		//       onkeydown -- 键被按下
+		//       onkeyup   -- 键被弹起
+		//       onkeypress -- 键被按（只对能被打印出文本内容的键有作用）
+		
+		//  ** 键盘事件，通常都绑定在document对象上。
+		//  ** 每个键，有一个对应的代码： event.keyCode可以获取出每个键的键值
+		//                        ， 可以通过keyCode，判断出你按的是哪个键。
+		//  ** 键盘事件的执行顺序： onkeydown --> onkeypress -- > onkeyup
+		
+		// 练习：检查用户是否按了ctrl.
+		//e.keyCode  按下键的代码
+		document.onkeydown = function(ev){
+			var e = ev || event;
+			console.log(e.ctrlKey);   //false
+			console.log(e.shiftKey);  //false
+			console.log(e.altKey);    //false
+			console.log(e.keyCode);   //123
+			if(e.ctrlKey){
+				console.log("你按了ctrl键:" + e.keyCode)
+			}else{
+				console.log("你按的键的代码：" + e.keyCode)
+			}
+
+			if(e.keyCode == 17){
+				console.log("你按了ctrl键:" + e.keyCode)
+			}else{
+				console.log("你按的键的代码：" + e.keyCode)
+			}
+			
+		}
+		
+//		document.onkeydown = function(){
+//			console.log("onkey down")
+//		}
+//		document.onkeypress = function(){
+//			console.log("onkey press")
+//		}
+//		document.onkeyup = function(){
+//			console.log("onkey up")
+//		}
+
+           // 练习： 使用上下左右方向键，完成对小球的位置的改变， 每次改变3px
+           // 左：37，上38，右：39，下40
+           
+           
+           document.onkeydown = function(ev){
+           		var e = ev|| event;
+           	// 判断按的是哪个键
+           	   if(e.keyCode == 37){ // 左边，修改left，改小
+           	   	    var l = getStyle($("box"),"left");
+           	   	    $('box').style.left = parseInt(l)-3 + 'px';
+           	   }else if(e.keyCode == 38){// 上边
+           	   	     var T = getStyle($("box"),"top");
+           	   	    $('box').style.top = parseInt(T)-3 + 'px';
+           	   }else if(e.keyCode == 39){// 右 ,秒
+           	   	     var l = getStyle($("box"),"left");
+           	   	    $('box').style.left = parseInt(l)+3 + 'px';
+           	   	    console.log(  $('box').style.right)
+           	   }else if(e.keyCode == 40){// 下  秒
+           	   	     var T = getStyle($("box"),"top");
+           	   	    $('box').style.top = parseInt(T)+3 + 'px';
+           }
+           	   }
+           
+	</script>
+</html>

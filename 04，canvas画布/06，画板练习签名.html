@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				background: skyblue;
+			}
+		</style>
+	</head>
+	<body>
+		<button>-</button>
+		<button>+</button>
+		<select name="">
+			<option value="black">黑色</option>
+			<option value="red">红色</option>
+			<option value="green">绿色</option>
+		</select>
+		<button>橡皮擦</button>
+		<canvas id="canvas" width="600px" height="600px"></canvas>
+	</body>
+	<script type="text/javascript">
+		var oCont = document.getElementById('canvas')
+		var context = oCont.getContext('2d')
+		var offL = oCont.offsetLeft
+		var offT = oCont.offsetTop
+		
+		var color = 'black'
+		var lineW = 1
+		var eraser = false
+		
+		oCont.onmousedown = function(ev){
+			var beginX = ev.clientX-offL
+			var beginY = ev.clientY-offT
+			//开始
+			context.beginPath()
+			context.moveTo(beginX,beginY)
+			//鼠标放下的时候就开始清除
+			context.clearRect(beginX-5,beginY-5,10,10)
+			oCont.onmousemove = function(ev){
+				var newX = ev.clientX-offL
+				var newY = ev.clientY-offT
+				if(eraser){
+					//移动的时候开始清除
+					context.clearRect(newX-5,newY-5,10,10)
+				}else{
+					context.lineTo(newX,newY)
+					context.lineWidth = lineW
+					context.strokeStyle = color
+					context.stroke()
+				}
+			}
+			document.onmouseup = function(){
+				oCont.onmousemove = null
+				//结束
+				context.closePath()
+			}
+		}
+		
+		var oBtn1 = document.getElementsByTagName('button')[0]
+		var oBtn2 = document.getElementsByTagName('button')[1]
+		var oCol = document.getElementsByTagName('select')[0]
+		var oBtn3 = document.getElementsByTagName('button')[2]
+		
+		oBtn2.onclick = function(){
+			lineW++
+		}
+		oBtn1.onclick = function(){
+			lineW--
+			if(lineW<=0){
+				lineW = 1
+			}
+		}
+		oCol.onchange = function(){
+//			console.log(this.value)
+			color = this.value
+		}
+		
+		oBtn3.onclick = function(){
+			eraser = !eraser
+		}
+	</script>
+</html>

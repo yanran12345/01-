@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				border: 1px solid red;
+				padding: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="outer">
+			<div class="inner">
+				<div class="box">
+					123456
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+//		$(document).click(function(ev){
+//			console.log(ev)
+//			console.log(ev.clientX)   //鼠标点针对于屏幕左上角的偏移量
+//			console.log(ev.clientY)
+//			console.log(ev.pageX)    //鼠标点针对于页面左上角的偏移量
+//			console.log(ev.pageY)
+//		})
+//		右键点击事件:contextmenu（（注意大小写）
+		$(document).on('contextmenu',function(ev){
+			console.log(1)
+			return false
+		})
+//		$(document).keydown(function(ev){
+//			console.log(ev.which)  //拿到键盘按键的编码
+//			ev.preventDefault()   //阻止浏览器默认事件
+//		})
+//		$('.outer').click(function(){
+//			console.log(1)
+//		})
+//		$('.inner').click(function(ev){
+//			console.log(2)
+//			ev.stopPropagation() //阻止冒泡事件
+//		})
+//		$('.box').click(function(){
+//			console.log(3)
+//			return false
+//		})
+	</script>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div {
+				width: 150px;
+				height: 150px;
+				border: 1px solid red;
+				margin-bottom: 2px;
+			}
+			/*div[class='box']{
+				background: blue;
+			}*/
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<div class="box active"></div>
+		<div class="boactive"></div>
+		<div class="boxact"></div>
+		<div class="boy-active"></div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+		//属性等于指定值
+		$('div[class=box]').css('background','green')
+
+		//开头
+		$('div[class^=box]').css('background','red')
+
+		//结尾
+		$('div[class$=e]').css('background','black')
+
+		//以value-开头
+		$('div[class|=boy]').css('background','salmon')
+		
+		//包含
+		$('div[class*=a]').css('background','seagreen')
+	</script>
+</html>

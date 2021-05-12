@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				top: 50px;
+				left: 50px;
+				border-radius: 50%;
+				border: 2px solid green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+	<script src="js/myquery.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		/*document.onmousemove = function(e){
+			var ev = e ||event
+			var x = ev.clientX;
+			var y = ev.clientY;
+			$("box").style.left = x-15 +"px";
+			$("box").style.top = y-15 +"px";
+			
+		}*/
+		
+		document.onmousemove = function(e){
+			
+			var ev = e ||event
+			 
+            var div  = document.createElement("div");
+            var body = document.getElementsByTagName("body")[0];
+            body.appendChild(div)
+            console.log(body.innerHTML)
+            var x = ev.clientX;
+			var y = ev.clientY;
+			div.style.left = x-15 +"px";
+			div.style.top = y-15 +"px";
+			 
+			
+		}
+		
+		
+	</script>
+</html>

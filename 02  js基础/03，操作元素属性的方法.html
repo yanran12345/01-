@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			img{
+				width: 300px;
+				height: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<input id="ipt" value="2019" />
+		<img src="img/animal2.jpg" id='img'>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+		// 复习： 操作元素属性的方法
+//		var ipt = $("ipt");
+//		ipt.value = "这是一只小猫！";// 属性修改
+//		var val = ipt.value ; // 或是属性值
+//		 ipt.value="";// 类似于删除
+
+        // ---------------Dom中提供了属性设置的相关方法
+        // 1. 获取属性值： obj.getAttribute("属性名")；    
+        var img = $("img");
+        var src = img.getAttribute("src");      
+        console.log(src);             //img/animal2.jpg
+        // 2. 修改(设置)属性值  ： obj.setAttribute("属性名","属性值"); 
+         img.setAttribute("src","img/animal4.jpg")    //换了一张图片
+        // 3. 删除属性值： obj.removeAttribute("属性名")
+        img.removeAttribute("src");  //删除了这张图片
+         // 4. 属性操作的区别
+         //  a. 自定义属性： 程序员根据编程的需要，给标签设置的属性，叫自定义属性。
+         //      *** 以什么方式设置的自定义属性，就以什么方式获取
+         // 这种方式设置自定义属性，需要使用 var i = img.index方式获取。
+         
+          //img.index = 3; 
+          img.setAttribute("index",5);    //自定义的属性
+          console.log("img.index:" + img.index);        //img.index:undefined(什么方式定义就什么方式获取)
+          console.log("img.getAttribute:" + img.getAttribute("index"));   //img.getAttribute:5
+          
+          // b. 标签的标准属性：
+           //    不管怎么设置的属性，两种方式都可以获取
+          img.id = "abc";                  //标准属性
+          img.setAttribute("id","hello")
+          console.log(img.id)                     //hello
+          console.log(img.getAttribute("id"));    //hello
+
+	</script>
+</html>

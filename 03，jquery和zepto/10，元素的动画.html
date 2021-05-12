@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 100px;
+				height: 100px;
+				background: red;
+				
+			}
+			.outer{
+				width: 200px;
+				height: 200px;
+				border: 1px solid red;
+				position: relative;
+				background: transparent;
+				margin-top: 2px;
+			}
+			.inner{
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
+			.box{
+				background: seagreen;
+			}
+		</style>
+	</head>
+	<body>
+		<button>显示</button>
+		<button>隐藏</button>
+		<button>自动切换</button>
+		<div class="">
+			
+		</div>
+		
+		<div class="outer">
+			<div class="inner">
+				
+			</div>
+		</div>
+		<br />
+		<button>animate动画</button>
+		<div class="box">
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+//		$('button').eq(0).click(function(){
+//			$('div').show()
+//		})
+//		$('button').eq(1).click(function(){
+//			$('div').hide()
+//		})
+//		$('button').eq(2).click(function(){
+//			$('div').toggle()
+//		})
+
+
+//		1、  fadeIn  fadeOut  渐入渐出
+//		$('button').eq(0).click(function(){
+//			$('div').fadeIn()
+//		})
+//		$('button').eq(1).click(function(){
+//			$('div').fadeOut()
+//		})
+//		$('button').eq(2).click(function(){
+//			$('div').fadeToggle()
+//		})
+		
+//		2,slideUp  slideDown   滑动的切换  向下展开，向上收起
+		$('button').eq(0).click(function(){
+			$('.inner').slideDown()
+		})
+		$('button').eq(1).click(function(){
+			$('.inner').slideUp()
+		})
+		$('button').eq(2).click(function(){
+			$('.inner').slideToggle()
+		})
+		
+//   配合绝对定位可以修改方向
+//	添加绝对定位,使用bottom关键字,可以使slide方向为:向下收起,向上展开
+
+//		4,animate()	
+//		$('button').eq(3).click(function(){
+//			$('.box').animate({
+//				'width':'200px',
+//				'height':'200px' 
+//			},3000,'linear',function(){
+//				alert('执行完毕')
+//			})
+//		})
+		
+//		5,animate方法,支持链式写法
+		$('button').eq(3).click(function(){
+			$('.box').animate({
+				'width':'200px',
+				'height':'200px'
+			},1000).animate({
+				'width':'50px',
+				'height':'50px'
+			},1000)
+		})
+	</script>
+</html>

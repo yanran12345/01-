@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="CSS/base.css"/>
+		<style type="text/css">
+			.outer{
+				width: 300px;
+				height: 300px;
+				border: 10px solid #B39558;
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin: -155px 0 0 -155px;
+				background: #404443;
+			}
+			.outer .cont{
+				width: 100%;
+				height: 100%;
+				/*border: 1px solid red;*/
+				border-radius: 50%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition: all 4s;
+			}
+			.cont li{
+				width: 4px;
+				height: 150px;
+				background: #B39558;
+				position: absolute;
+				top: 0;
+				left: 50%;
+				margin-left: -2px;
+				-webkit-transform-origin: bottom center;
+			}
+			.cont li:nth-child(2){
+				-webkit-transform: rotate(30deg);
+			}
+			.cont li:nth-child(3){
+				-webkit-transform: rotate(60deg);
+			}
+			li img{
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				top: 20px;
+				left: 15px;
+				-webkit-transform: rotate(15deg);
+			}
+			li .prize{
+				width: 60px;
+				height: 30px;
+				/*border: 1px solid red;*/
+				text-align: center;
+				font-size: 14px;
+				color: #fff;
+				position: absolute;
+				top: 20px;
+				left: 2px;
+				-webkit-transform: rotate(10deg);
+			}
+			.btn{
+				width: 100px;
+				height: 100px;
+				background: #B39558;
+				border-radius: 50%;
+				border: 4px solid #1b1b1b;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top: -54px;
+				margin-left: -54px;
+				text-align: center;
+				cursor: pointer;
+			}
+			.btn p:first-child{
+				margin-top: 20px;
+			}
+			.btn:before{
+				content: '';
+				width: 10px;
+				height: 10px;
+				background: #B39558;
+				border: 4px solid #1b1b1b;
+				position: absolute;  /*  总共宽高分别为18px*/
+				top: -8px;
+				left: 50%;
+				margin-left:-9px ;
+				-webkit-transform: rotate(45deg);
+				border-color: #1b1b1b transparent transparent #1B1B1B;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="outer">
+			<ul class="cont">
+				<!--<li>
+					<img src="img/cry.png"/>
+				</li>
+				<li>
+					<div class="prize">
+						<p>8</p>
+						<span>
+							元话费
+						</span>
+					</div>
+				</li>
+				<li></li>-->
+			</ul>
+			<div class="btn">
+				<p>开始抽奖</p>
+				<p>START</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var arr=[  //定义奖品数据包，真实项目中，这个数据包来自后端数据库
+			{'id':0,'state':false,'prize':'','words':'再接再厉~'},
+			{'id':1,'state':true,'prize':'1','words':''},
+			{'id':2,'state':true,'prize':'2','words':''},
+			{'id':3,'state':false,'prize':'','words':'继续加油~'},
+			{'id':4,'state':true,'prize':'10','words':''},
+			{'id':5,'state':true,'prize':'5','words':''},
+			{'id':6,'state':false,'prize':'','words':'马上中奖~'},
+			{'id':7,'state':true,'prize':'100','words':''},
+			{'id':8,'state':true,'prize':'3','words':''},
+			{'id':9,'state':false,'prize':'','words':'加把劲儿~'},
+			{'id':10,'state':true,'prize':'8','words':''},
+			{'id':11,'state':true,'prize':'2','words':''}
+		];
+		var oCont = document.getElementsByClassName('cont')[0]
+		var str = ''
+		for (var i=0;i<12;i++) {
+			if(arr[i].state){
+				str += '<li style="-webkit-transform: rotate('+i*30+'deg); "><div class="prize"><p>'+arr[i].prize+'</p><span>元话费</span></div></li>'
+			}else{
+				str += '<li style="-webkit-transform: rotate('+i*30+'deg); "><img src="img/cry.png"/></li>'
+			}
+		}
+//		console.log(str)
+		oCont.innerHTML = str
+		
+		//点击btn，使转盘旋转
+		//控制中奖概率，使得每次都指向未中奖区域
+//		第一未中奖区域 0-30deg ，减少10-20deg，避免争议，
+//		第二未中奖区域 90-120deg ，避免争议，100-110deg
+//		第三未中奖区域 180-210deg ，避免争议，190-200deg
+//		第四未中奖区域 270-300deg ，避免争议，280-290deg
+
+		
+		var oBtn = document.getElementsByClassName('btn')[0]
+		var n = 0
+		oBtn.onclick = function(){
+			n++
+			var n1 = Math.random()*10+10  //10-20
+			var n2 = Math.random()*10+100  //100-110
+			var n3 = Math.random()*10+190  //190-200
+			var n4 = Math.random()*10+280  //280-290
+			var arr1 = [n1,n2,n3,n4]
+			var num  = parseInt(Math.random()*4)
+			
+//			console.log(num*3)
+//			console.log(arr1[num])
+			oCont.style.webkitTransform = 'rotate('+(720*n-arr1[num])+'deg)'
+			setTimeout(function(){                           //转的圈数会累积，变成一个常数好理解
+				alert(arr[num*3].words)
+			},4000)
+		}
+	</script>
+</html>

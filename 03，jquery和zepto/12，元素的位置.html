@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			/* *{
+				margin: 0;
+				padding: 0;
+			} */
+			.outer{
+				width: 500px;
+				height: 500px;
+				border: 1px solid seagreen;
+				position: relative;
+			}
+			.inner{
+				width: 100px;
+				height: 100px;
+				background: seagreen;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="outer">
+			<div class="inner">
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+//		获取元素相对于屏幕边缘的位置  offset（）,有滚动条时候，是页面左上角
+//		console.log($('.inner').offset())
+		// console.log($('.inner').offset().left)  //259 250+1+8
+		// console.log($('.inner').offset().top)
+		
+//		获取元素相对于离它最近的有定位包裹元素的位置  position（）
+//		console.log($('.inner').position())
+//		console.log($('.inner').position().left)  //250
+//		console.log($('.inner').position().top)
+	</script>
+</html>

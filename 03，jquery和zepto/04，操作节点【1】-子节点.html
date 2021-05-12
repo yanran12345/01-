@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			li{
+				border: 1px solid red;
+				font-size: 30px;
+			}
+			.active{
+				background: seagreen;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>
+				<span>span</span>
+				<span class="infor">infor+span</span>
+				<span>span</span>
+			</li>
+			<li>
+				<h4>h4</h4>
+				<h4 class="infor">h4+infor</h4>
+				<h4>h4</h4>
+			</li>
+			<li>li</li>
+		</ul>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+//		children()  children(参数)  find()   has()
+		$('li').click(function(){
+//			$(this).children().addClass('active')   //选中所有子节点
+//			$(this).children('span').addClass('active')
+//			$(this).children('.infor').addClass('active')   //选中指定子节点
+//			$(this).find('.infor').addClass('active')
+
+//			$(this).has('span').addClass('active')  
+		})
+		
+
+	</script>
+</html>

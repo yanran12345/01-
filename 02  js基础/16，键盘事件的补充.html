@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<button id="btn">按钮</button>
+		<input type="text" value=""  id="ipt"/>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+		// 键盘的按下事件，会导致在输入框中的文本内容，无法获取最后一个输入的内容
+		//     ---- 如果需要获取到输入框的全部内容，使用onkeyup事件
+		// 练习: 将输入框的内容获取出来
+		
+		
+		/*document.onkeydown = function(){
+			console.log($("ipt").value);     //无法获取最后一个内容
+		}
+        document.onkeyup = function(){       
+			console.log($("ipt").value);     //可以获取最后一个内容
+		}*/
+		
+//		
+//      ---- 当前$("btn")没有获取到焦点，因此，键盘事件无效
+//           单击btn按钮，，让按钮具有焦点，键盘事件才有效
+
+		/*$("btn").onkeydown = function(){
+			console.log("键盘按下");
+		}*/
+		
+		// 按键的时候，会执行onkeydown事件，按钮会获取到焦点，然后
+		// 执行btn的onkeyup事件，btn已经有焦点了，所有键盘事件生效。
+		
+		
+        $("btn").onkeyup = function(){
+			console.log("键盘弹起")              
+		}
+ 
+		document.onkeydown = function(){
+			$("btn").focus();
+		}
+		
+		 
+		
+		
+		
+		
+	</script>
+</html>

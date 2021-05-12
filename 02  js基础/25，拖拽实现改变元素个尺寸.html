@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	<style type="text/css">
+			div {
+				height: 200px;
+				width: 100px;
+				background: cadetblue;
+				position: absolute;
+				top: 200px;
+				left: 200px;
+			}
+			
+			#box1 {
+				top: 410px;
+			}
+			/*#box div{
+				height: 100%;
+				width: 10px;
+				background: #000;
+			}
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}*/
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+		</div>
+		<!--<div id="box1">
+		</div>-->
+	</body>
+	<script src="js/myQuery.js"></script>
+	<script>
+		// 拖拽原理：  
+		//     onmousedown -- 监听鼠标按下事件，完成选中功能【被拖拽的目标对象】
+		//     onmousemove -- 监听鼠标移动事件， 被拖拽的对象跟随鼠标移动
+		//     onmouseup   -- 监听鼠标弹起事件， 取消onmousemove
+		
+		dragChangeSize($("box"));
+		
+		function dragChangeSize(obj){
+			obj.onmousedown = function(e){
+				var en = e || event;
+				// 1. 记录鼠标按下的时候的初始数据
+				var L = this.offsetLeft;
+				var T  = this.offsetTop;
+				var W = parseInt(getStyle(this,"width"));
+				var H = parseInt(getStyle(this,"height"));
+				
+				var beginX  = en.clientX;
+				var beginY  = en.clientY;
+				
+				// 2. 判断方向 -- 以距离边界30px为参考点
+				var b ; // 用于表示拖拽的方向
+				if(beginX >L && beginX < L+30){
+					b = "left" ;// 左边
+				}else if(beginX < L+W && beginX > L+W-30){
+					b = "right";// 右边
+				}else if(beginY > T && beginY < T+30 ){
+					b = "up";// 上边
+				}else if(beginY < T+H && beginY > T+H-30){
+					b = "down"
+				}
+				
+				// 3. 鼠标移动事件，改变obj的相关的css
+				document.onmousemove = function(e1){
+					var e2 = e1 || event;
+					switch (b){
+						case "left":
+						    var newLeft = L - (beginX - e2.clientX)
+						    var newW   = W + (beginX - e2.clientX)
+						    obj.style.left = newLeft + "px";
+						    obj.style.width = newW + "px";
+							break;
+						case "right":
+						     var newW   = W - (beginX - e2.clientX)
+						      obj.style.width = newW + "px";
+							break;
+						case "up":
+						      var newTop = T - (beginY - e2.clientY);
+						      var newH =  H  + (beginY -e2.clientY)
+						      obj.style.top = newTop + "px";
+						    obj.style.height = newH + "px";
+							break;
+						case "down":
+						     var newH =  H  - (beginY -e2.clientY)
+						      obj.style.height = newH + "px";
+							break;
+					}
+				}
+				
+				document.onmouseup = function(){
+					  document.onmousemove = null;
+				}
+				
+				return false;
+			}
+		}
+		
+	</script>
+</html>

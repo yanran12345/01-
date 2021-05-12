@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				padding: 50px;
+				border: 1px solid blueviolet;
+			}
+			body{
+				margin: 0px;
+			}
+			#box1{
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1">
+			<div id="box2">
+				<div id="box3">	
+				</div>
+			</div> 
+		</div> 
+	</body>
+	<script>
+		// 1. offsetTop , offsetLeft  --- 距离自己最近的有定位的包裹元素的top和left值（没有加上自己的border ）
+		// --- 如果所有包裹元素都没有设置定位，则参考html标签
+		var box3 = document.getElementById("box3");
+		console.log("offsetTop:" + box3.offsetTop);  //101px
+		console.log("offsetLeft:" + box3.offsetLeft);  //101px
+		
+		// 2. 元素的宽，高
+		//  a. getStyle(obj, attr)  -- width , height
+		//                          --  obj.style.width, obj.style.height
+		
+		//  b. 可见宽，可见高 （width/height+padding）没有加上自己的border
+		//     clientWidth   --- 该数据随着浏览器的宽度变化而变化
+		//     clientHeight  --- 页面显示的计算之后的整个高度
+		console.log("box3-clientWidth:" + box3.clientWidth);   //该数据随着浏览器的宽度变化而变化
+		console.log("box3-clientHeight:" + box3.clientHeight);   //100px
+		 var box2 = document.getElementById("box2");
+		console.log("box2-clientWidth:" + box2.clientWidth);   //该数据随着浏览器的宽度变化而变化
+		console.log("box2-clientHeight:" + box2.clientHeight);  //202px
+		// c. 占位宽，占位高（width/height+padding+border）加上了自己的border
+		//    offsetWidth   --- 占位宽
+		//    offsetHeight  --- 占位高
+		console.log("box3-offsetWidth:" + box3.offsetWidth)  //该数据随着浏览器的宽度变化而变化
+		console.log("box3-offsetHeight:" + box3.offsetHeight)  //102px
+		console.log("box2-offsetWidth:" + box2.offsetWidth)  //该数据随着浏览器的宽度变化而变化
+		console.log("box2-offsetHeight:" + box2.offsetHeight)  //204px
+		
+		// 3. 计算出某个对象距离文档边缘的top/left值
+		//  --- 封装一个函数，完成计算对象距离文档边缘的距离
+		// *** 函数的语法规则规定： 一个函数只能返回一个数据
+		function getPos(obj){
+			var t = 0;
+			var l = 0 ;
+			//var arr = [];
+			var pos = {"top":t,"left":l}
+			while(obj){
+				pos.top  = pos.top + obj.offsetTop;
+				pos.left  = pos.left+ obj.offsetLeft;
+				obj = obj.offsetParent;
+			}
+			//arr.push(t,l);
+			return pos;
+		}
+		console.log(getPos(box3).left);  //101px
+		console.log(getPos(box3).top);  //101px
+	</script>
+</html>

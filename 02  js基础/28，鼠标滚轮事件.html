@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/myQuery.js" ></script>
+		<script>
+			// 鼠标滚轮事件： ie ， chrome 
+			//            firefox
+			// 1. ie, chrome
+			//    -- onmousewheel : 鼠标滚轮事件
+			//    -- event.wheelDelta :  120 , wheelDelta是正数120 ，表示鼠标滚轮向上滚动
+			//                           -120，wheelDelta负数120 ，表示鼠标滚轮向下滚动
+			
+//			document.onmousewheel = function(e){
+//				var en = e || event;
+//				console.log(en.type) // 事件类型
+//				console.log(en.wheelDelta);
+//				console.log("ie, chrome.....")
+//				
+//			}
+			
+			// 2. firefox 
+			//   -- DOMMouseScroll : 鼠标滚轮事件
+			//   -- event.detail : 3  , detail是正数3，表示鼠标向下滚动
+			//                     -3 ，detail是负数3， 表示鼠标向上滚动
+			//   -- DOMMouseScroll , 只支持使用addEventListener的方式绑定事件
+			// 错误的方式
+//			document.DOMMouseScroll = function(){
+//				console.log("不执行");
+//			}
+			// 正确的方式
+//			document.addEventListener("DOMMouseScroll",function(e){
+//				var en = e || event;
+//			    console.log(en.type) // 事件类型
+//				console.log(en.detail);
+//				console.log("firefox.....")
+//			},false)
+//			
+			
+			// myScroll 函数，可以兼容ie，Chrome， 和firefox三种浏览器
+			
+			
+			
+			
+			function myScroll(ev){
+				var en = ev || event;
+				var b = true ;// b为true,表示向上滚动， b为false表示向下滚动
+				if(ev.wheelDelta){
+//					if(ev.wheelDelta == 120){
+//						b = true 
+//					}else{
+//						b = false;
+//					}
+					ev.wheelDelta == 120 ? b = true : b = false
+				}else if(ev.detail){
+//					 if(ev.detail == 3){
+//					 	b = false;
+//					 }else{
+//					 	b = true;
+//					 }
+					 ev.detail== 3 ?b = false : b=true
+				}
+		
+				if(b){// 鼠标滚轮向上要完成的功能
+					console.log("上。。。。。")
+				}else{// 鼠标滚轮向下要完成的功能
+					console.log("下.......")
+				}
+				
+			}
+			
+			 document.onmousewheel = function(e){
+			 	myScroll(e);
+			 }
+			 document.addEventListener("DOMMouseScroll",function(e){
+			 	myScroll(e);
+			 },false)
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+       var  now = new  Date(); 
+       var  day = new  Date("2019-11-11 00:00:00");
+       var  mills = day - now;//所有时间的毫秒数
+       console.log(mills)
+       
+       var  tian = Math.floor(mills/(24*60*60*1000));
+       console.log("天：" + tian); 
+       
+       
+        mills = mills - (24*60*60*1000)*tian ; //一天时间的毫秒数
+        var xiaoshi = Math.floor(mills/(60*60*1000));
+        console.log("小时：" + xiaoshi);
+        
+        
+        mills = mills - xiaoshi*(60*60*1000); //小时的毫秒数
+        var fenzhong = Math.floor(mills/(60*1000));
+        console.log("分钟：" + fenzhong);
+        
+        
+        mills = mills - fenzhong*(60*1000);//分钟的毫秒数
+        var miao = Math.floor(mills/1000);
+        console.log("秒：" + miao) 
+        
+        
+        mills = mills - (miao*1000); //秒的毫秒数
+        console.log("毫秒：" + mills);
+	</script>
+</html>

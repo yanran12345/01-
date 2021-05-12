@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			div{
+				width: 100px;
+				height: 100px;
+				background: salmon;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="">
+			
+		</div>
+	</body>
+	<script src="js/jquery-3.4.1.js"></script>
+	<script type="text/javascript">
+		var l=0   //l是margin-left最后的赋值
+		var t=0
+		$(document).keydown(function(ev){
+//			console.log(ev.which)    // 上右下左 38  39 40  37
+			var n = ev.which
+			switch (n){
+				case 37:{
+					l = (l-5)<=0?0:(l-5)
+					break
+				}
+				case 38:{
+					t = (t-5)<=0?0:(t-5)
+					break
+				}
+				case 39:{
+					l = l+5
+					break
+				}
+				case 40:{
+					t = t+5
+					break
+				}
+			}
+			$('div').css({
+				'margin-top': t+'px',
+				'margin-left': l+'px'
+			})
+		})
+	</script>
+</html>

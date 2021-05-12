@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="CSS/base.css"/>
+		<style type="text/css">
+			li{
+				width: 100px;
+				line-height: 50px;
+				border: 1px solid red;
+			}
+			ul{
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>菜单1</li>
+			<li>菜单1</li>
+			<li>菜单1</li>
+			<li>菜单1</li>
+			
+		</ul>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+		$(document).on('contextmenu',function(ev){
+//			console.log(ev.clientX)
+//			console.log(ev.clientY)
+			var l = ev.clientX
+			var t = ev.clientY
+			$('ul').css({
+				'top': t+'px',
+				'left': l+'px'
+			}).show()
+			
+			return false
+		})
+		$(document).click(function(){
+			$('ul').hide()
+		})
+	</script>
+</html>

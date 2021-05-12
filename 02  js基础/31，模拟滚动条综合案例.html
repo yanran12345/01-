@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#outer{
+				width:20px;
+				height: 400px;
+				position: relative;
+				background: #D8D8D8;
+				float: left;
+			}
+			#inner{
+				width: 20px;
+				height: 40px;
+				background: red;
+				position: absolute;
+				top:0;
+				left: 0;
+			}
+			#cont{
+				background:  cornflowerblue;
+				height: 400px;
+				width: 200px;
+				float: left;
+				position: relative;
+				overflow: hidden;
+			}
+			#box{
+				position: absolute;
+				top:0px;
+				left: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="outer">
+			<div id="inner"></div>
+		</div>
+		<div id="cont">
+			<div id="box" >
+			豫章故郡，洪都新府。星分翼轸（zhěn），地接衡庐。 襟三江而带五湖，控蛮荆而引瓯（ōu）越。物华天宝， 龙光射牛斗之墟；人杰地灵，徐孺下陈蕃（fān）之榻（tà）。 雄州雾列，俊采星驰。台隍（huáng）枕（zhěn）夷夏之交， 宾主尽东南之美。都督阎（yán）公之雅望，棨（qǐ）戟（jǐ）遥临； 宇文新州之懿（yì）范，襜（chān）帷（wéi）暂驻。十旬休假， 胜友如云；千里逢迎，高朋满座。腾蛟（jiāo）起凤，孟学士之词宗； 紫电青霜，王将军之武库。家君作宰，路出名区；童子何知， 躬逢胜饯（jiàn）。 时维九月，序属三秋。潦（lǎo）水尽而寒潭清， 烟光凝而暮山紫。俨（yǎn）骖（cān）騑（fēi）于上路， 访风景于崇阿（ē）。临帝子之长洲，得天人之旧馆。层峦耸翠， 上出重霄；飞阁流丹，下临无地。鹤汀（tīng）凫（fú）渚（zhǔ）， 穷岛屿之萦回；桂殿兰宫，即冈峦之体势。 披绣闼（tà）， 俯雕甍（méng），山原旷其盈视，川泽纡其骇瞩。闾阎（lǘ yán）扑地， 钟鸣鼎食之家；舸（gě）舰弥津，青雀黄龙之舳（通：轴zhú）。 云销雨霁（jì），彩彻区明。落霞与孤鹜齐飞，秋水共长天一色。 渔舟唱晚，响穷彭蠡（lǐ）之滨，雁阵惊寒，声断衡阳之浦。 遥襟甫畅，逸兴遄（chuán）飞。爽籁发而清风生， 纤歌凝而白云遏（è）。睢（suī）园绿竹，气凌彭泽之樽（zūn）； 邺（yè）水朱华，光照临川之笔。四美具，二难并。 穷睇眄（dì miǎn）于中天，极娱游于暇日。天高地迥（jiǒng）， 觉宇宙之无穷；兴尽悲来，识盈虚之有数。望长安于日下， 目吴会（kuài）于云间。地势极而南溟（míng）深，天柱高而北辰远。 关山难越，谁悲失路之人；萍水相逢，尽是他乡之客。 怀帝阍（hūn）而不见，奉宣室以何年？ 嗟乎！时运不齐，命途多舛（chuǎn）。 冯唐易老，李广难封。屈贾谊于长沙，非无圣主；窜梁鸿于海曲，岂乏明时？ 所赖君子见机，达人知命。老当益壮，宁移白首之心？穷且益坚，不坠青云之志。 酌贪泉而觉爽，处涸辙（hé zhé）以犹欢。北海虽赊（shē）， 扶摇可接；东隅（yú）已逝，桑榆非晚。孟尝高洁，空余报国之情； 阮籍猖狂，岂效穷途之哭！ 勃，三尺微命，一介书生。 无路请缨，等终军之弱冠（guàn）；有怀投笔，慕宗悫（què）之长风。
+			</div>
+		</div>
+	</body>
+	<script src="js/myQuery.js"></script>
+	<script>
+		// 1. 找到这个box能够变化的最大top值
+		var boxTop = $("box").offsetHeight - $("cont").offsetHeight;
+		var innerTop = $("outer").offsetHeight - $("inner").offsetHeight;
+		
+		$("inner").onmousedown = function(e){
+			var e1 =e || event;
+			var beginY = e1.clientY;
+			var oldT = $("inner").offsetTop
+			$("inner").onmousemove = function(e1){
+				var e2 = e1 || event;
+				// 修改inner的top值
+				// 	var T = e2.clientY - beginY +  $("inner").offsetTop;- bug 
+				var T = e2.clientY - beginY +  oldT;
+				if(T <0 ){
+					T= 0;
+				}else if(T > innerTop){
+					T = innerTop
+				}
+				$('inner').style.top = T + 'px';
+				// 修改box的top值
+				var x = T / innerTop;
+				var bt = x * boxTop;
+				$('box').style.top = -bt + 'px';
+			}
+			
+			document.onmouseup = function(){
+				$("inner").onmousemove = null;
+			}
+			return false;
+		}
+		// ==========================
+		//  使用鼠标的滚轮事件，完成，上滚动，则修改inner的top值减少5px，反之则加5px
+		document.onmousewheel = myScroll;
+		document.addEventListener("DOMMouseScroll",myScroll);
+		function myScroll(){
+			var b = true; 
+			if(event.wheelDelta){
+				event.wheelDelta>0 ? b = true : b = false;
+			}else if(event.detail){
+				event.detail > 0 ?b = false : b = true;
+				// b= event.detail > 0 ?false :true;
+			}
+			var innerMaxTop = $("outer").offsetHeight - $("inner").offsetHeight;
+			var boxMaxTop = $("box").offsetHeight - $("cont").offsetHeight;
+			var innerNewTop ;
+			var boxNewTop;
+			if(b){// 向上滚动  inner往上移动  box
+				innerNewTop = $("inner").offsetTop -5;
+				if(innerNewTop < 0 ){
+					innerNewTop = 0 ;
+				}
+			}else {// 向下滚动    inner往下移动
+				innerNewTop = $("inner").offsetTop + 5;
+				if(innerNewTop > innerMaxTop){
+					innerNewTop = innerMaxTop;
+				}
+			}
+			boxNewTop = innerNewTop / innerMaxTop * boxMaxTop;
+			$('box').style.top = -boxNewTop + "px";
+			$("inner").style.top = innerNewTop + "px";
+		}
+		
+		
+		
+	</script>
+</html>

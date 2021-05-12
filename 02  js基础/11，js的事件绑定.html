@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<button id="btn">按钮</button>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+		// 1.事件类型：鼠标事件， 键盘事件，其他事件（焦点相关事件， onchange...）
+		// 2. 事件绑定方式
+		//    a. 标签中通过事件属性，添加事件
+		//    <button onclick="alert('hello')">按钮</button>
+		//    b. 通过事件的名称，给元素添加事件。
+		//       *** 此种方式，会导致给同一个元素多次添加同一种事件，后添加的，覆盖先添加的。
+		//       obj.onclick  = function(e){}
+		function f1(){
+			console.log("++++")
+		}
+		function f2(){
+			console.log("-------")
+		}
+		
+//		$("btn").onclick = f1;
+//		$("btn").onclick = f2;
+		//   c. 通过事件绑定函数，给元素添加事件
+		//      obj.addEventListener('事件名称',function,boolean)
+		//       *** 支持一个对象，同时添加多个同类事件。
+		//      listener: 监听器
+		//        --- 事件名称： click,mouseover,mouserout....
+		//        --- function: 事件要执行的函数
+		//        --- boolean : 指是否希望在事件捕获阶段执行事件，默认为false.表示
+		//                      不要在事件捕获阶段执行函数。
+		//    事件分为三个阶段： 
+		 //         1.事件捕获阶段
+		 //         2.事件执行阶段
+		 //         3.事件冒泡阶段
+		 
+//		 document.addEventListener("click",function(){
+//		 	alert("hello");
+//		 },false)
+//		 
+//		 $("btn").addEventListener("click",function(){
+//		 	alert("bye-bye");
+//		 },false);
+//		  $("btn").addEventListener("click",function(){
+//		 	alert("hello-hello");
+//		 },false);
+		 // d.ie浏览器事件绑定方式
+		 //  obj.attachEvent("事件名称",事件函数)
+		 //   --- 事件名称 , onclick,onmouserover.....
+		 //   --- 事件函数： 事件执行的函数
+		 
+//		 $("btn").attachEvent("onclick",function(){
+//		 	alert("attch event")
+//		 })
+		 // 3. 事件取消
+		 //    *** 使用什么方式添加的事件，就用什么方式取消
+		 //    a. obj.onXX = function(){}
+		 //    取消： obj.onXX = null;
+		// $("btn").onclick = null;
+		 
+		 //    b. addEventListern(...)
+		 //       obj.removeEventListener("事件名称",函数名称)
+		 //       removeEventListener要求，添加事件的时候函数是需要有名字的函数。
+		 //       取消的时候，使用该函数的名字进行取消，否则取消事件不生效。
+//		 $("btn").removeEventListener("click",function(){
+//		 	alert("(((((")
+//		 })
+ 		$("btn").addEventListener("click",f1);
+		 $("btn").removeEventListener("click",f1);
+		 
+		 //    c. attachEvent(...)
+		 //       obj.detachEvent(事件名称)
+		 
+		//  $('btn').detachEvent("onclick");
+		 
+		
+	</script>
+</html>

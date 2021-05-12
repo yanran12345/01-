@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#cont{
+				width:300px;
+				height: 300px;
+				border: 1px solid #000;
+				overflow-y: scroll;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="" id="word">
+		<select id="selec">
+			<option value="1">Enter</option>
+			<option value="2"> Enter + Ctrl</option>
+		</select>
+		<div id="cont">
+			<!--<p>000</p>-->
+		</div>
+	</body>
+	<script src="js/myQuery.js"></script>
+	<script>
+	
+		document.onkeyup = function(ev){
+			var e = ev || event;
+			console.log("enter:" + e.keyCode); // enter键值为13
+			var selecValue = $("selec").value;
+			
+			
+			// selecValue==1 && e.keyCode==13:enter
+			// selecValue==2&&e.keyCode==13&&e.ctrlKey==true :enter+ctrl
+			if(selecValue==1 && e.keyCode==13  || 
+				selecValue==2&&e.keyCode==13&&e.ctrlKey==true){
+			     	var val = $("word").value;
+			     	var p = document.createElement("p");
+			     	p.innerHTML = val;
+			     	$("cont").appendChild(p);
+			}
+		}
+	</script>
+</html>

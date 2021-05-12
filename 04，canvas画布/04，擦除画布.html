@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				background: skyblue;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="300px" height="300px"></canvas>
+	</body>
+	<script type="text/javascript">
+		var oCont = document.getElementById('canvas')
+		var context =  oCont.getContext('2d')
+		
+		context.rect(50,50,150,150)
+		context.fillStyle = 'orange'
+		context.fill()
+		
+		context.clearRect(100,100,100,100)
+	</script>
+</html>

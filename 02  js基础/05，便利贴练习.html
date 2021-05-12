@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.control{
+				width: 400px;
+				border: 1px solid mediumvioletred;
+				border-radius: 10px;
+				margin: auto;
+				text-align: center;
+				padding: 20px;
+			}
+			.control input,.control textarea{
+				width: 90%;
+			}
+			.control input{
+				height: 30px;
+			}
+			.control textarea{
+				resize: none;
+				height: 100px;
+				margin:10px 0;
+			}
+			.control button{
+				padding: 10px 40px;
+			}
+			#cont{
+				border: 2px solid cornflowerblue;
+				height: 500px;   /*500px*/
+				margin-top: 20px;
+				border-radius: 4px;
+				position: relative;
+				overflow: hidden;
+			}
+			.box{
+				height: 200px;
+				width: 200px;
+				background: url(img/box_bg.png) no-repeat;
+				background-size: 100% 100%;
+				padding: 10px;
+				position: absolute;
+				top: -210px;     /*-210px  */
+			}
+			.box span{
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				color: #FFF;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="control">
+			<input type="text" name="" id="user" value="我是昵称" placeholder="请输入昵称" />
+			<textarea id="word" name="" rows="" cols="" placeholder="请输入留言内容">
+					这个效果不错这个效果不错这个效果不错
+			</textarea>
+			<button id="btn">发送</button>
+		</div>
+		<div id="cont">
+			<!--<div class="box">
+				<h1>昵称</h1>
+				<p>hello ,记得吃饭</p>
+				<span>X</span>
+			</div>-->
+		</div>
+	</body>
+	<script type="text/javascript" src="js/myquery.js"></script>
+	<script type="text/javascript">
+		//实现，点击发送按钮，则将内容以一张便利贴的形式显示在下面的div中
+		$("btn").onclick = function(){
+			var user = $("user").value;
+			var word = $("word").value;
+			var height = Math.floor(Math.random()*300);
+			var w = $("cont").clientWidth-200;
+			var width = Math.floor(Math.random()*w);
+			var div = document.createElement("div");
+			$("cont").appendChild(div);
+			div.className = "box";
+			
+			var h1 = document.createElement("h1");
+			h1.innerHTML = user;
+			div.appendChild(h1);
+			
+			var p = document.createElement("p");
+			p.innerText = word;
+			div.appendChild(p);
+			
+			
+			var span = document.createElement("span");
+			span.innerText = "X";
+			div.appendChild(span);             //已经指明了被点击的span对应的div
+			
+			div.style.left = width+"px";
+			div.style.top = height+"px";
+			
+			span.onclick =function(){
+				shake(div,"top",function(){
+					disappear(div,-0.05,function(){
+						div.remove();//删除自己
+					})
+				})
+			}
+			
+			
+		}
+		
+			
+		
+		
+		
+		
+	</script>
+</html>

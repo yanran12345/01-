@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				position:absolute;
+				top:10px;
+				left: 5px;
+			    border: 1px solid red;
+			}
+			span{
+				width: 5px;
+				height: 5px;
+				background:green;
+				position:  absolute;
+				display: inline-block;
+				border-radius: 50%;
+				top:10px;
+				left: 0px;
+			}
+			#cont{
+				width: 500px;
+				height: 500px;
+				position:relative;
+				top:50px;
+				left:5px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<button id="bold">粗画笔</button>
+			<button id="light">细画笔</button>
+			<select id="bg">
+				<option value="red">红色</option>
+				<option value="green">绿色</option>
+				<option value="blue">蓝色</option>
+			</select>
+			<select id="shape">
+				<option value="line">线条</option>
+				<option value="circle">圆</option>
+				<option value="box">矩形</option>
+			</select>
+			<button id="cc">橡皮擦</button>
+		</div>
+		<div id="cont">
+			<!--<span></span>
+			<div style="width: 100px; height: 200px;border-radius: 50%"></div>-->
+		</div>
+	</body>
+	<script src="js/myQuery.js"></script>
+	<script>
+		var num = 5; // 画笔的粗细
+		var s = true;// true代表不是橡皮擦，false代表是橡皮擦
+		var bgColor = "red";// 表示背景颜色
+		var shape = "line"; // 表示画的形状
+		// 1. 粗画笔按钮
+		$("bold").onclick = function(){
+			num++;
+			s = true;
+		}
+		// 2. 细画笔按钮
+	     $("light").onclick = function(){
+	     	num--;
+	     	if(num < 1){
+	     		num = 1;
+	     	}
+	     	s=true;
+	     }
+		// 3. 颜色状态改变
+		$("bg").onchange = function(){
+			bgColor = this.value;
+		}
+		// 4. 图像状态改变
+		$("shape").onchange = function(){
+			shape = this.value;
+		}
+		// 5. 橡皮擦状态设置
+	    $("cc").onclick = function(){
+	    	s = false;
+	    }
+	
+		// 6. 画画-- 按下开始画
+		  $("cont").onmousedown = function(e){
+		  	 var en = e || event;
+		  	 //a。 记录下鼠标的单击的位置
+		  	 var beginX = en.clientX;
+		  	 var beginY = en.clientY;
+		  	 // 计算出画的div的top,left值
+		  	 var divTop = beginY - $("cont").offsetTop;
+		  	 var divLeft = beginX - $("cont").offsetLeft;
+		  	 
+		  	 var div = document.createElement("div");
+		  	 $("cont").onmousemove = function(e1){
+		  	 	var e2 = e1 || event;
+		  	 	// 鼠标移动的时候，需要先确定是画笔还是橡皮擦
+		  	 	if(s){// 表示画笔
+		  	 		if(shape == "line"){ // 画线条 - span
+		  	 			// 计算span的top,left
+		  	 			var topS = e2.clientY - $("cont").offsetTop;
+		  	 			var leftS = e2.clientX - $("cont").offsetLeft; 
+		  	 			var span = document.createElement("span");
+		  	 			span.style.width = num + "px";
+		  	 			span.style.height =num + "px";
+		  	 			span.style.top = topS + "px";
+		  	 			span.style.left = leftS + "px";
+		  	 			span.style.background = bgColor;
+		  	 			$('cont').appendChild(span);
+		  	 			
+		  	 			
+		  	 		}else{// 画图形-div
+		  	 			// 计算出div的宽，高
+		  	 			var newWidth = e2.clientX - beginX;
+		  	 			var newHeight = e2.clientY - beginY;
+		  	 			// ?? 检查新的宽，高可用出现的最大值
+		  	 			
+		  	 			
+		  	 			div.style.width = newWidth+"px";
+		  	 			div.style.height = newHeight + "px";
+		  	 			div.style.border = num +"px solid "+bgColor;
+		  	 			div.style.top = divTop + "px";
+		  	 			div.style.left = divLeft + 'px';
+		  	 			
+		  	 			
+		  	 			if(shape == "circle"){
+		  	 				div.style.borderRadius = "50%";
+		  	 			}
+		  	 			$("cont").appendChild(div);
+		  	 		}	
+		  	 	}else{// 橡皮擦
+		  	 		// 找到事件源， 不是cont，则删除自己
+		  	 		var st = e2.srcElement || e2.target;
+		  	 		if(st != $("cont") ){
+		  	 			st.remove();// 删除自己
+		  	 		}
+		  	 	}
+		  	 	
+		  	 	document.onmouseup = function(){
+		  	 		$("cont").onmousemove = null;
+		  	 	}
+		  	 	
+		  	 	return false; // 阻止浏览器的默认事件
+		  	 }
+		  	 
+		  	 
+		  }
+	</script>
+</html>

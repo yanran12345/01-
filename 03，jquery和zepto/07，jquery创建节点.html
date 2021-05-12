@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width: 400px;
+				height: 400px;
+				border: 1px solid red;
+			}
+			p{
+				background: salmon;
+				color: #FFF;
+			}
+		</style>
+	</head>
+	<body>
+		<button>按钮</button>
+		<div class="box">
+			<!--<p>我是p标签</p>-->
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+//		方法一:使用html()
+//		$('button').click(function(){
+//			var str = $('.box').html()
+//			str += '<p>我是p标签</p>'
+//			$('.box').html(str)
+//		})
+//		$('p').click(function(){
+//			alert(1)
+//		})
+
+//		方法二:
+//		$('button').click(function(){
+////			var $p = $('<p>')
+////			$p.html('我是文字')
+//			
+//			var $p = $('<p>我是文字</p>')
+//			$('.box').html($p)
+//			
+//		})
+//		$('p').click(function(){
+//				alert(1)
+//		})
+//		方法三:append
+		$('button').click(function(){
+			var $p = $('<p>我是文字</p>')
+			$('.box').append($p)	
+		})
+//		$('p').click(function(){
+//				alert(1)
+//		})
+		
+//		事件委托:解决新生成的元素无法绑定事件的问题
+		$('.box').on('click','p',function(){
+			alert(1)
+		})
+		
+	</script>
+</html>

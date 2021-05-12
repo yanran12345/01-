@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width: 500px;
+				height: 500px;
+				border: 1px solid red;
+				position:  relative;
+			}
+			span{
+				background: blue;
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				margin: 3px;
+				position:  absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="btn">按钮</button>
+		 <div id="box">
+		 	<p>这是div的第一个元素子节点</p>
+		 </div>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+		// 复习： 
+		// 标签的创建： var str = "<span>....</span>"
+		
+		// dom:
+		// 1. 创建标签的方法：
+		//     创建新节点： document.createElement("标签名字")
+		//             ---- 标签创建好之后，属于游离态， 需要添加到dom树上。     
+		// 2. 父节点.appendChild(新节点)  -- 作为父节点的最后一个子节点
+		var p = document.createElement("p");
+		p.innerText = "我是新创建的p节点";
+		// $("box").appendChild(p);
+		
+		// 3. 父节点.insertBefore(新节点， 参考节点) --- 插入在指定节点之前
+		$("box").insertBefore(p,$("box").firstElementChild);
+		
+		// 练习： 单击按钮， 则生成一个span标签，并且添加到box中
+		//      要求： span出现在box的随机位置
+		$("btn").onclick = function(){
+			var span = document.createElement("span");
+			var  t = Math.floor(Math.random()*450);
+			var l = Math.floor(Math.random()*450);
+			span.style.top = t+"px";
+			span.style.left = l+"px";
+			$("box").appendChild(span);
+		}
+		
+		// 4. 删除节点  :  父节点.removeChild(被删除的节点)
+		var p = document.getElementsByTagName("p");
+		$('box').removeChild(p[0]);
+		var p = document.getElementsByTagName("p");
+		
+		$("box").removeChild(p[0]);//$("box").remove();好像是删除$("box")
+		
+		
+		    
+		
+	</script>
+</html>

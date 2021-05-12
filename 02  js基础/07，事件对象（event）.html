@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		// function -- arguments 
+		// 和事件相关的对象： event 
+		// js中event对象，类似于飞机的黑匣子的功能，在事件发生的整个过程中，记录下跟该事件相关的
+		// 所有数据
+		// event对象是js中定义的全局变量
+		// ** 有点浏览器，该全局变量，必须使用参数传入才可以使用
+		// ** 事件对象有浏览器兼容性问题
+//		document.onclick = function(){
+//			//console.log(event);
+//			// for ...in 循环
+//			for(var k in event){
+//				console.log(k + " : " + event[k]);
+//			}
+//		}
+       //  ***  事件函数，只建议传一个参数，该参数表示event对象。
+       //       如果超过一个参数，第一个表示event对象，其他参数无效。
+//     document.onclick = function(a,b,c){
+//			//console.log(a); // a就代表event对象
+//			// for ...in 循环
+//			console.log("b:" + b) // undefined
+//			
+////			for(var k in a){
+////				console.log(k + " : " + a[k]);
+////			}
+//		}
+        // *** 事件对象的兼容性解决方式
+        
+        document.onclick = function(e){
+        	// 如果event对象存在（true），就将event对象赋值给ev，否则将e赋值给ev
+//      	var ev = e || event; 
+        	var ev ;
+        	if(e ){
+        		ev = e;
+        	}else{
+        		ev = event;
+        	}
+        	console.log(ev.clientX+":"+ ev.clientY);
+        }
+        
+
+		
+	</script>
+</html>

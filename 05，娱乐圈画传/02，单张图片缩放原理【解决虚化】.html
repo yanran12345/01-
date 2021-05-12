@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				height: 100%;
+			}
+			#canvas{
+				background: #dbdbdb;
+			}
+			#btn{
+				width: 100px;
+				height: 100px;
+				line-height: 100px;
+				text-align: center;
+				color: #fff;
+				background: seagreen;
+				border-radius: 50%;
+				position: fixed;
+				bottom: 10%;
+				left: 50%;
+				margin-left: -50px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="300" height="300"></canvas>
+		<div id="btn">按钮</div>
+	</body>
+	<script type="text/javascript" src="js/imgdata.js" ></script>
+	<script type="text/javascript">
+		var oC = document.getElementById('canvas')
+		var context = oC.getContext('2d')
+		
+		oC.width = document.body.offsetWidth
+		oC.height = document.body.offsetHeight
+		
+//		截取x坐标的范围: 870~0
+//		截取y坐标的范围: 415~0
+//		截取w宽度的范围: 275~1875
+//		截取h高度的范围: 450~3015
+
+//		假设,每点击一次
+//      都让截取的x坐标减少num=5
+//		y减少多少?   ？/415=num/870   -->   y减少的部分是：415*(num/870)
+//		w增加多少?   ？/（1875-275）= num/870   -->   w增加的部分是：（1875-275）*(num/870)
+//		h增加多少?   ？/（3015-450）= num/870   -->   h增加的部分是：（3015-450）*(num/870)
+
+
+/*				screenW  screenH代表着小图片原有的大小
+ *             大图片x减少的部分/图片实际的宽度  = 小图片x增加的部分（变化的宽度，从0起始）/图片实际的大小
+ *             num让图片增大了多少的比例，同时就让小图片减少了多少的比例
+ * 				var smX =num /sW*screenW
+ *                       x减少的部分
+				var smY =imgArr[n].y*(num/imgArr[n].x) /sH*screenH
+				         y减少的部分
+				
+				screenW  screenH代表着小图片原有的大小
+				大图片按着什么比例放大，小图片就按着什么比例缩小
+				smW /screenW  =   imgarr[n]W/sW
+				var smW = imgArr[n].w/sW*screenW
+				var smH = imgArr[n].h/sH*screenH
+				*/
+		var n = 1 // 标志当前图片的下标，标志图片切换
+		var img = new Image()
+		img.src = imgArr[n].imgUrl
+		var smImg = new Image()
+		smImg.src = imgArr[n-1].imgUrl
+		img.onload = function(){
+			context.drawImage(img,imgArr[n].x,imgArr[n].y,imgArr[n].w,imgArr[n].h,0,0,oC.width,oC.height)
+		}
+		
+		var oBtn = document.getElementById('btn')
+		var screenW = document.body.offsetWidth
+		var screenH = document.body.offsetHeight
+		var num=5
+		var timer = null
+		oBtn.onmousedown = function(){
+			timer = setInterval(function(){
+				var sX = imgArr[n].x-num
+				var sY = imgArr[n].y-imgArr[n].y*(num/imgArr[n].x)
+				var sW = imgArr[n].w+(1875-imgArr[n].w)*(num/imgArr[n].x)
+				var sH = imgArr[n].h+(3015-imgArr[n].h)*(num/imgArr[n].x)
+//				context.drawImage(img,sX,sY,sW,sH,0,0,oC.width,oC.height)
+				
+				
+				//解决小图虚化，需要知道实时的偏移量和截取宽高度变化
+				
+				//图片的实际高度1450,3850；截取宽高度236 336
+				//屏幕的实际宽高度是一个定值
+				
+				var smX = screenW/sW*num  
+				var smY = screenH/sH*imgArr[n].y*(num/imgArr[n].x)
+				var smW = screenW/sW*imgArr[n].w
+				var smH = screenH/sH*imgArr[n].h
+				context.drawImage(smImg,0,0,smImg.width,smImg.height,smX,smY,smW,smH)
+//				console.log('screenw'+screenW)
+//				console.log('sw---------'+sW)
+//				console.log('num'+num)
+//				console.log('smx'+smX)
+				if(sX<=0){
+					n++
+					if(n>=5){
+						n=1
+					}
+					num = 5
+					img.src = imgArr[n].imgUrl
+					smImg.src = imgArr[n-1].imgUrl
+				}else{
+					num+=5
+				}
+				
+			},20)
+		}
+		oBtn.onmouseup = function(){
+			clearInterval(timer)
+		}
+	</script>
+</html>

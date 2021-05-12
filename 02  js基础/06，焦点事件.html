@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" name="" value="提示性文字" id="input1" />
+		<input type="text" name="" value="请输入邮箱地址" id="input2"/>
+		<br>
+		<button id="btn">复制代码</button>
+		<textarea id="word" rows="5" cols="50" >
+			 输入框内鼠标单击，光标闪烁，表示当前输入框获取到焦点 -- focus.
+			输入框外鼠标单击， 光标离开输入框，表示当前输入框失去焦点 -- blur.
+		</textarea>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+	     // 1. 什么是焦点  ---- 光标所在位置， 则称为获取到焦点。
+	     //   a. 鼠标单击
+	     //   b. tab键可以获取焦点
+	     //   c. 可以通过js代码设置焦点
+	     //           -- focus() ,获取到焦点的函数
+	     //           --  blur() . 失去焦点的函数
+	     //   d. select()方法可以 获取焦点
+	     //           -- select()，全选
+	     //    *** 焦点相关的事件
+	     //           -- onfocus ，获取焦点事件
+	     //           -- onblur , 失去焦点事件
+	     
+	     // 页面加载完成之后， 让input2 具有焦点
+	     $("input2").focus();
+	     //$("input2").blur();
+	     $("input1").focus();
+	     
+	     // 案例：input2，获取焦点的时候，清除内部的value，
+	     //             失去焦点的时候，显示提示内容
+	     $("input2").onfocus = function(){
+	     	// 获取焦点，直接删除里面的内容
+	     	this.value = "";
+	     }
+	     
+	     $("input2").onblur = function(){
+	     	if(this.value == ""){
+	     		this.value = "请输入邮箱地址"
+	     	}
+	     }
+	     
+	     // btn的单击事件，完成对文本内容的全选和复制
+	     // 全选： select()
+	     // 复制： document.execommand("copy")
+	     $('btn').onclick = function(){
+	     	$("word").select();
+	     	document.execCommand("copy");  //全选复制
+	     }
+// 			 输入框内鼠标单击，光标闪烁，表示当前输入框获取到焦点 -- focus.
+//			输入框外鼠标单击， 光标离开输入框，表示当前输入框失去焦点 -- blur.
+		
+	     
+	     
+	</script>
+</html>

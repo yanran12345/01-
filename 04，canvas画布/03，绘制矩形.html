@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				background: skyblue;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="300px" height="300px"></canvas>
+	</body>
+	<script type="text/javascript">
+		var oCont = document.getElementById('canvas')
+		var context = oCont.getContext('2d')
+		
+//		context.moveTo(100,100)
+//		context.lineTo(200,100)
+//		context.lineTo(200,200)
+//		context.lineTo(100,200)
+//		context.lineTo(100,100)
+//		context.stroke()
+
+//		1,空心矩形
+//		context.rect(100,100,100,100)   //rect(左上角的横坐标，左上角纵坐标，宽度，高度)
+//		context.strokeStyle = 'red'
+//		context.lineWidth = 30
+//		context.lineJoin = 'round'   //线条连接的样式
+//		context.stroke()
+		
+//		context.strokeRect(50,50,100,100)
+		
+//		2,实心矩形
+//		context.rect(100,100,100,100)   //rect(左上角的横坐标，左上角纵坐标，宽度，高度)
+		context.fillStyle = 'green'
+		context.lineWidth = 30
+		context.lineJoin = 'round'   //线条连接的样式
+//		context.fill()
+		
+		context.fillRect(100,100,100,100)
+		
+	</script>
+</html>

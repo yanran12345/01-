@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				width: 100%;
+				height: 100%;
+				background: #1B1B1B;
+				overflow: hidden;
+			}
+			.loading{
+				width: 120px;
+				height: 120px;
+				border-radius: 50%;
+				background: url(img/loading-Home.gif);
+				background-position: -10px -10px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top: -60px;
+				margin-left: -60px;
+				-webkit-animation: loading 1s 2s linear forwards;
+			}
+			@-webkit-keyframes loading{
+				0%{
+					background: url(img/loading-Home.gif);
+					-webkit-transform: scale(1);
+				}
+				5%{
+					background: #FFD200;
+					-webkit-transform: scale(1.5);
+				}
+				100%{
+					background: #FFD200;
+					-webkit-transform: scale(20);
+				}
+			}
+			.plane-cont{
+				width: 800px;
+				height: 400px;
+				position: absolute;
+				top: 50%;
+				left: 150%;
+				margin: -200px 0 0 -400px;
+				/*border: 1px solid red;*/
+			}
+			.plane{
+				/*border: 1px solid green;*/
+				width: 800px;
+				height: 400px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.plane-cont.move-in{
+				-webkit-animation: moveIn 1s 3s linear forwards;
+			}
+			/*飞机进场动画*/
+			@-webkit-keyframes moveIn{
+				from{
+					left: 150%;
+				}
+				to{
+					left: 50%;
+				}
+			}
+			.plane-cont.move-out{
+				-webkit-animation: moveOut 2s linear forwards;
+			}
+			/*飞机出场动画*/
+			@-webkit-keyframes moveOut{
+				0%{
+					left: 50%;
+					-webkit-transform: scale(1);
+				}
+				30%{
+					left: 50%;
+					-webkit-transform: scale(0.8);
+				}
+				100%{
+					left: -150%;
+					-webkit-transform: scale(0.8);
+				}
+			}
+			
+			.plane{
+				-webkit-animation: plane-float 3s 4s linear infinite alternate-reverse;
+			}
+			/*飞机上下浮动*/
+			@-webkit-keyframes plane-float{
+				from{
+					-webkit-transform: translateX(5px) translateY(10px);
+				}
+				to{
+					-webkit-transform: translateX(-5px) translateY(-10px);
+				}
+			}
+			.plane-cont img{
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.plane .prop{
+				top: 205px;
+				left: 105px;
+				-webkit-animation: propMove 0.2s linear infinite;
+			}
+			@-webkit-keyframes propMove{
+				from{
+					-webkit-transform: rotate(0deg);
+				}
+				to{
+					-webkit-transform: rotate(360deg);
+				}
+			}
+			#title{
+				width: 100%;
+				text-align: center;
+				font-size:50px ;
+				color: #fff;
+				position: absolute;
+				left: 0;
+				top: 30%;
+				opacity: 0;
+			}
+			#title.active{
+				-webkit-animation: show 1s 2s linear forwards;    /* 飞机飞出去需要两秒显示文字*/
+			}
+			@-webkit-keyframes show{
+				from{
+					opacity: 0;
+					-webkit-transform: translateY(20px);
+				}
+				to{
+					opacity: 1;
+					-webkit-transform: translateY(0px);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="loading"></div>
+		
+		
+		<div class="plane-cont move-in">
+			<div class="plane">
+				<img src="img/plane.svg"/>
+				<img class="prop" src="img/propeller.svg"/>
+			</div>
+		</div>
+		
+		<h1 id="title" class="title">Bye Bye ~~</h1>
+	</body>
+	<script type="text/javascript">
+//		鼠标的滚轮事件：
+//		IE/Chrome --  onmouseWheel    ev.wheelDelta <0   向下
+//		火狐 事件绑定  --DOMMouseScroll ev.Detail >  向下
+		document.onmousewheel = scrollFn
+		document.addEventListener('DOMMouseScroll',scrollFn,false)
+		
+		var oPlane = document.getElementsByClassName('plane-cont')[0]
+		var oTit = document.getElementById('title')
+		function scrollFn(ev){
+			var n = null  //true为向上，false向下
+			if(ev.wheelDelta){
+				n = ev.wheelDelta>0?true:false
+			}else{
+				n = ev.detail>0?false:true
+			}
+			if(n){
+				oPlane.className = 'plane-cont move-in'
+				oPlane.style.webkitAnimationDelay = '0.2s'
+				oTit.className = ''
+			}else{
+				oPlane.className = 'plane-cont move-out'
+				oTit.className = 'active'
+			}
+		}
+
+	</script>
+</html>

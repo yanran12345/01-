@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				background: skyblue;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="300px" height="300px"></canvas>
+	</body>
+	<script type="text/javascript">
+		var oCont = document.getElementById('canvas')
+		var context =  oCont.getContext('2d')
+		function draw(){
+//			context.beginPath()
+			for (var i=0;i<60;i++) {
+				context.beginPath()
+				context.moveTo(150,150)
+				context.arc(150,150,100,i*Math.PI/30,Math.PI/30*(i+1),false)
+				context.strokeStyle = '#000'
+				context.lineWidth = 1
+				context.stroke()
+				context.closePath()
+			}
+			context.beginPath()
+			context.arc(150,150,90,0,Math.PI*2,false)
+			context.fillStyle = 'skyblue'
+			context.fill()
+			context.closePath()
+			
+	
+			var myDate = new Date()
+			var s = myDate.getSeconds()
+			var h = myDate.getHours()
+			var m = myDate.getMinutes()
+			//时针
+			context.beginPath()
+			context.moveTo(150,150)
+			context.arc(150,150,70,(h+m/60)*(Math.PI/6)-Math.PI/2,(h+m/60)*(Math.PI/6)-Math.PI/2,true)
+			context.strokeStyle = '#000'
+			context.lineWidth = 4
+			context.stroke()
+			context.closePath()
+			
+			//秒针  秒针默认的地方就是-Math.PI/2
+			context.beginPath()
+			context.moveTo(150,150)
+			context.arc(150,150,90,s*(Math.PI/30)-Math.PI/2,s*(Math.PI/30)-Math.PI/2,true)
+			context.strokeStyle = 'red'
+			context.lineWidth = 1
+			context.stroke()
+			context.closePath()
+		}
+		
+		draw()
+		setInterval(function(){
+			context.clearRect(0,0,300,300)
+			draw()
+		},1000)
+	</script>
+</html>

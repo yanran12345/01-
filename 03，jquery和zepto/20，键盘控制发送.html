@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width: 500px;
+				height: 500px;
+				border: 1px solid red;
+			}
+			p{
+				background: seagreen;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text" name="" id="" value="123" />
+		<select name="">
+			<option value="">请选择发送方式</option>
+			<option value="send1">ctrl+enter</option>
+			<option value="send2">enter</option>
+		</select>
+		<div class="box">
+			<!--<p>123</p>-->
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+		$(document).keydown(function(ev){
+//			console.log(ev)   //enter:13   ctrlkey:true/false
+			var mode = $('select').val()
+			var n = ev.which
+//			console.log(mode)
+
+//			var $p = $('<p>')
+//			$p.html($('input').val())
+
+			var $p = $('<p>'+$('input').val()+'</p>')
+			
+			if(mode=='send1'&&ev.ctrlKey==true&&n==13){
+				$p.appendTo($('.box'))
+			}else if(mode=='send2'&&ev.ctrlKey==false&&n==13){
+				$p.appendTo($('.box'))
+			}
+ 		})
+	</script>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			img {
+				width:100px;
+				height: 100px;
+			    position:absolute;
+			    top: 50px;
+			    left: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<button id='btn'>回放</button>
+		<img id="box" src="img/animal1.jpeg">
+	</body>
+	<script src="js/myQuery.js"></script>
+	<script>
+		// 拖拽原理：  
+		//     onmousedown -- 监听鼠标按下事件，完成选中功能【被拖拽的目标对象】
+		//     onmousemove -- 监听鼠标移动事件， 被拖拽的对象跟随鼠标移动
+		//     onmouseup   -- 监听鼠标弹起事件， 取消onmousemove
+        // drag函数修改： 拖拽过程中记录的obj对象的所有top,left值
+		drag($("box"));
+		var pos = [] ;// 空数组
+		function drag(obj){
+			obj.onmousedown = function(e){
+			var en = e || event;
+			// chax,chay数据是固定的
+			var chay = en.clientY - obj.offsetTop;
+			var chax = en.clientX - obj.offsetLeft;
+			
+			// box做移动事件。 考虑到移动速度太快，会导致鼠标脱离box对象，移动事件失效。
+			// 建议，将移动事件，绑定document对象上，利用事件的冒泡原理，保证移动事件的执行
+			document.onmousemove = function(en1){
+				var en2 = en1 || event;
+				var top = en2.clientY - chay ; 
+				var left = en2.clientX - chax; 
+				obj.style.top = top + "px";
+				obj.style.left = left + "px";
+				pos.push({"top":top,"left":left})
+				//console.log(pos);
+			}
+			
+			obj.onmouseup = function(){
+				document.onmousemove = null;// 取消事件
+			}
+			
+			// *** 取消浏览器默认的拖拽事件发生
+			return false;
+			
+			}
+			
+			
+		
+		
+		}
+		
+		$("btn").onclick=function(){
+			clearInterval(timer);
+			// pos逆序
+			pos.reverse();
+			console.log(pos)
+			// 遍历pos获取数据
+			var index = 0;
+
+			var timer = setInterval(function(){
+				var top = pos[index].top;
+				var left = pos[index].left;
+				$('box').setAttribute("style","top:"+top+"px;left: "+left+"px;")
+				index ++;
+				if(index == pos.length ){
+					clearInterval(timer)
+				}
+			},200)
+		}
+	</script>
+</html>

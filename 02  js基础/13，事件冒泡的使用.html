@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0;
+			}
+			#outer{
+				height: 200px;
+				width: 200px;
+				background: #000;
+				position: relative;
+				left: -200px;
+			}
+			#inner{
+				height: 100px;
+				width: 30px;
+				background: red;
+				text-align: center;
+				position: absolute;
+				top: 50px;
+				right: -30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="outer">
+			<div id="inner">
+				分享到
+			</div>
+		</div>
+		<p id="p1">测试</p>
+	</body>
+	<script type="text/javascript" src="js/myQuery.js" ></script>
+	<script>
+		// 利用事件冒泡的原理：
+		// inner设置一个鼠标进入事件  ： 由于事件冒泡，那么inner上的鼠标进入事件触发，则会
+		//                       触发outer上的鼠标进入事件
+		// outer设置一个鼠标进入事件
+		
+		$("inner").onmouseover = function(e){  //inner鼠标进入事件触发,则会触发outer的鼠标进入事件
+			var en = e || event;
+			/*if(en.stopPropagation){
+				en.stopPropagation()
+			}else{
+				en.cancelBubble = true;   //阻止事件冒泡,outer的鼠标进入时间就不会发生
+			}*/
+		}
+		
+		$("outer").onmouseover = function(){
+			go(this,"left",5,0);
+		}
+		
+		$("outer").onmouseout = function(){
+			go(this,"left",-5,-200);
+		}
+		
+		
+	</script>
+</html>

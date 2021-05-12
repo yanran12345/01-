@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 200px;
+				height: 200px;
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="">我是div</div>
+		<p>我是p</p>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+//		appendTo append
+//      将p标签添加到div里面
+//		$('p').appendTo($('div'))
+//      在div里面添加p标签
+//		$('div').append($('p'))
+
+//		before  insertBefore
+//      在div之前放p标签
+//		$('div').before($('p'))
+//      将p标签放在div之前
+//		$('p').insertBefore($('div'))
+		
+//		after  insertAfter
+//		$('p').insertAfter($('div'))
+		$('p').after($('div'))
+		
+	</script>
+</html>

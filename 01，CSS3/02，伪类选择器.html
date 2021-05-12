@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			/*伪类选择器 常用
+			 * 
+			 * :disabled     按钮/多选框/单选框能不能点
+			 * :checked
+			 * :first-line
+			 * :first-letter
+			 * ::selection
+			 */
+			:checked{
+				position: relative;
+				top: 100px;
+			}
+			:disabled{
+				position: relative;
+				top: 50px;
+			}
+			.box:first-line{
+				/*第一排字是绿色*/
+				background: green;         
+				color: #fff;
+			}
+			.box:first-letter{
+				/*第一个字放大红色*/
+				font-size: 24px;
+				background: red;
+			}
+			.box::selection{
+				/*鼠标选择的为黄色*/
+				background: yellow;      /*注意有两个冒号*/
+			}
+		</style>
+	</head>
+	<body>
+		<input type="checkbox" name="" id="" value="" checked="checked" />
+		<input type="checkbox" name="" id="" value="" disabled="disabled"/>
+		<input type="checkbox" name="" id="" value="" />
+		<input type="checkbox" name="" id="" value="" />
+		<br />
+		<br />
+		<br /><br /><br /><br />
+		<div class="box">
+			我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字我是文字
+		</div>
+	</body>
+</html>

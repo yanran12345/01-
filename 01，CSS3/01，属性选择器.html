@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			/*选中属性等于指定值元素*/
+			div[myname='box']{
+				background: red;
+			}
+			/*以指定值开头*/
+			div[myname^='o']{
+				background: red;
+			}
+			/*以指定值结尾*/
+			div[myname$='e']{
+				background: red;
+			}
+			/*以 value-开头*/
+			div[myname|='ox']{
+				background: green;
+			}
+		</style>
+	</head>
+	<body>
+		<!--属性-->
+		<div myname="box">box</div>
+		<div myname="box">box</div>
+		<div myname="box-active">box-active</div>
+		<div myname="ox-ace">ox-ace</div>
+		<div myname="bo">bo</div>
+	</body>
+</html>

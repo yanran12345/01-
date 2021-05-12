@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				border: 1px solid red;
+			}
+			span{
+				background: salmon;
+			}
+		</style>
+	</head>
+	<body>
+		<button>点击</button>
+		<div class="">
+			<span id="">我是span
+				
+			</span>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+//		$('button').click(function(){
+//			alert(1)
+//		})
+
+//		$('button').on('click',function(){
+//			alert(1)
+//		})
+
+
+//      事件委托：新生成元素无法绑定事件
+//		$(document).on('click','button',function(){
+//			alert(1)
+//		})
+
+//		on可以同时绑定多个事件
+		$('button').on('mousedown mouseup',function(){
+			console.log(123)
+		})
+		
+//		事件冒泡:
+//		$('div').click(function(){
+//			console.log(123)
+//		})
+//		$('span').click(function(){
+//			console.log(456)
+//			return false  //在jquery中，既可以阻止默认事件，又可以处理冒泡事件
+//		})
+
+//		off(),取消某一个事件
+//		$('button').off('mouseup')   //取消mouseup事件
+		$('button').off()   //取消绑定的所有事件事件
+
+		
+	</script>
+</html>

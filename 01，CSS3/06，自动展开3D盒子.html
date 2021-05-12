@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.outer{
+				width: 200px;
+				height: 200px;
+				/*border: 1px solid red;*/
+				margin: 200px;
+				-webkit-transform-style: preserve-3d;
+				-webkit-perspective: 2000px;
+				position: relative;
+				-webkit-transform-origin: center center 100px;
+				/*transition: all 4s linear;*/
+				-webkit-animation: role 4s 9s linear;
+			}
+			/*.outer:hover{
+				-webkit-transform: rotateX(360deg) rotateY(720deg);
+			}*/
+			@-webkit-keyframes role{
+				from{
+					-webkit-transform: rotateX(0deg) rotateY(0deg);
+				}
+				to{
+					-webkit-transform: rotateX(360deg) rotateY(720deg);
+				}
+			}
+			.box{
+				width: 200px;
+				height: 200px;
+				background: salmon;
+				position: absolute;
+				top: 0;
+				left: 0;
+				text-align: center;
+				line-height: 200px;
+				opacity: 0.3;
+			}
+			
+			.box:nth-child(1){
+				background: red;
+				-webkit-transform-origin: top center;
+				/*-webkit-transform: rotateX(90deg);*/
+				-webkit-animation: topBox 1s linear forwards;
+				/*z-index: 6;*/
+			}
+			@-webkit-keyframes topBox{
+				from{
+					-webkit-transform: rotateX(0deg);
+				}
+				to{
+					-webkit-transform: rotateX(90deg);
+				}
+			}
+			.box:nth-child(2){
+				background: blue;
+				-webkit-transform-origin: bottom center;
+				/*-webkit-transform: rotateX(-90deg);*/
+				/*z-index: 5;*/
+				-webkit-animation: bottomBox 1s 1s linear forwards;
+			}
+			@-webkit-keyframes bottomBox{
+				from{
+					-webkit-transform: rotateX(0deg);
+				}
+				to{
+					-webkit-transform: rotateX(-90deg);
+				}
+			}
+			
+			.box:nth-child(3){
+				background: goldenrod;
+				-webkit-transform-origin: left center;
+				/*-webkit-transform: rotateY(-90deg);*/
+				/*z-index: 4;*/
+				-webkit-animation: leftBox 1s 2s linear forwards;
+			}
+			@-webkit-keyframes leftBox{
+				from{
+					-webkit-transform: rotateY(0deg);
+				}
+				to{
+					-webkit-transform: rotateY(-90deg);
+				}
+			}
+			.box:nth-child(4){
+				-webkit-transform-origin: right center;
+				/*-webkit-transform: rotateY(90deg);*/
+				background: green;
+				-webkit-animation: rightBox 1s 3s linear forwards;
+			}
+			@-webkit-keyframes rightBox{
+				from{
+					-webkit-transform: rotateY(0deg);
+				}
+				to{
+					-webkit-transform: rotateY(90deg);
+				}
+			}
+			.box:nth-child(5){
+				background: darkblue;
+				/*-webkit-transform: translateZ(200px);*/
+				-webkit-animation: prevBox 5s 4s linear forwards;
+			}
+			@-webkit-keyframes prevBox{
+				0%{
+					-webkit-transform: rotateX(0) translateZ(0);
+				}
+				30%{
+					-webkit-transform: rotateX(360deg) translateZ(0);
+				}
+				100%{
+					-webkit-transform: rotateX(360deg) translateZ(200px);
+				}
+			}
+			.box:nth-child(6){
+				background: skyblue;
+				-webkit-transform: translateZ(0px);
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="outer">
+			<div class="box">上</div>
+			<div class="box">下</div>
+			<div class="box">左</div>
+			<div class="box">右</div>
+			<div class="box">前</div>
+			<div class="box">后</div>
+		</div>
+	</body>
+</html>

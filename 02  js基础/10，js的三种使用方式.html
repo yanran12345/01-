@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<button onclick="alert('hello')">按钮</button>
+		<div onclick="abc(this)">
+			我是div1
+		</div>
+		<div onclick="abc(this)">
+			我是div2
+		</div>
+		<input type="text" onblur="b(this)" onfocus="a(this)" />
+		<p onclick="p(event)">
+			我第p标签
+		</p>
+	</body>
+	<script>
+		// 1. 使用在html页面中使用script标签，进行使用
+		// 2. 使用.js文件，在文件内写入js代码， 在html标签中，导入该js文件，进行使用
+		// 3. 在html标签中嵌套使用js.
+		//  <button onclick="js的函数调用">按钮</button>
+		function abc(obj){
+			console.log(obj.innerText);
+		}
+		function a(obj){
+			obj.value="_____________-"
+		}
+		function b(obj){
+			obj.value = "";
+		}
+		
+		function p(e){
+			var en = e || event;
+			console.log(event);
+		}
+		
+	</script>
+</html>

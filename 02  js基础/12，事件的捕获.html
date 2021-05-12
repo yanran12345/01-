@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				padding: 30px;
+				border: 1px solid darkgoldenrod;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1">
+			<div id="box2">
+				<div id="box3"></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+		// 1. 事件处理的三个阶段： 
+		//    a. 事件捕获阶段
+		//    b. 事件执行阶段 -- 目标
+		//    c. 事件冒泡阶段
+		
+		// 什么是事件的捕获阶段
+		//  页面加载完成之后，如果触发了某个事件，会从document开始，往下查找，
+		//  直到找到事件源，这个过程，被称为事件的捕获阶段。
+		//     *** 捕获同类事件
+		//     *** addEventListener()--可以设置是否需要在捕获阶段执行事件。
+		//                           -- 默认为false，即不要在捕获阶段执行事件
+		
+//		document.addEventListener("click",function(){
+//			console.log("doucument ....")
+//		},true);
+//		// box1的事件和box3事件是不同的类型
+//		$("box1").addEventListener("dbclick",function(){
+//			console.log("box1 ....")
+//		},true);
+//		
+//		$("box2").addEventListener("click",function(){
+//			console.log("box2 ....")
+//		},true);
+//		
+//		$("box3").addEventListener("click",function(){
+//			console.log("box3 ....")
+//		},true);               //捕获阶段
+//		
+
+
+       // ** 这种方式添加的事件，默认就是捕获阶段不执行事件。
+       document.onclick = function(){console.log("doucument ....")}
+		$("box3").onclick = function(){console.log("box3 ....")}
+	</script>
+</html>

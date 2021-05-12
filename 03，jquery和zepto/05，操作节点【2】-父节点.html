@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.outer,li,ul{
+				border: 5px solid blue;
+				margin: 15px;
+			}
+			.active{
+				border: 5px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="outer">
+			<div class="outer">
+				<ul>
+					<li>
+						<span>span</span>
+					</li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+//		parent() parents(参数) parents() closest() 
+		$('li').click(function(){
+//			$(this).parent().addClass('active')   //该元素的父节点
+//			$(this).parents().addClass('active')   //该元素的所有的父节点
+//			$(this).parents('.outer').addClass('active')   //该元素的指定的父节点
+//			$(this).closest('.outer').addClass('active')   //该元素的指定的最近的父节点
+		})
+		
+	</script>
+</html>

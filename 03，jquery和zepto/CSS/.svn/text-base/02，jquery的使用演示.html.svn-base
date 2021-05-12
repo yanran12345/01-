@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 200px;
+				height: 200px;
+				background: red;
+				margin-bottom: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="">
+			
+		</div>
+		<div id="">
+			
+		</div>
+		<div id="">
+			
+		</div>
+		<div id="">
+			
+		</div>
+	</body>
+	<script src="js/jquery-3.4.1.js"></script>
+	<script>
+		//原生js
+//		var aDiv = document.getElementsByTagName('div')  //dom操作
+//		for (var i =0;i<aDiv.length;i++) {
+//			aDiv[i].onclick = function(){
+//				this.style.background = 'blue'
+//			}
+//		}
+		
+		//jquery
+		$('div').on('click',function(){
+			$(this).css('background','blue')
+		})
+	</script>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			img {
+				width:100px;
+				height: 100px;
+			    position:absolute;
+			    top: 10px;
+			    left: 0px;
+			}
+			div{
+				width: 200px;
+				height: 200px;
+				border: 1px solid blueviolet;
+				position: absolute;
+				background:red;
+				top: 300px;
+				left:700px
+			}
+	
+		</style>
+	</head>
+	<body>
+		
+		<img id="box" src="img/animal1.jpeg">
+		<div id="target"></div>
+	</body>
+	<script src="js/myQuery.js"></script>
+	<script>
+		// 拖拽：
+		// onmousedown: 选中要拖拽的对象
+		// onmousemove :移动被选中的对象
+		// onmouseup   : 固定被拖拽对象的新位置--- 取消移动事件
+		// 练习： 拖拽元素的时候，不要超过边界
+		drag($("box"),$("target"));
+		function drag(obj,target){
+			obj.onmousedown = function(e){
+				var en = e || event;
+				// chax,chay数据是固定的
+				var chay = en.clientY - obj.offsetTop;
+				var chax = en.clientX - obj.offsetLeft;  //鼠标离边框的距离
+				
+				// box做移动事件。 考虑到移动速度太快，会导致鼠标脱离box对象，移动事件失效。
+				// 建议，将移动事件，绑定document对象上，利用事件的冒泡原理，保证移动事件的执行
+				document.onmousemove = function(en1){
+					var en2 = en1 || event;
+					var top = en2.clientY - chay ; 
+					var left = en2.clientX - chax; 
+//					obj.style.top = top + "px";
+//					obj.style.left = left + "px";
+					// 被拖拽的对象，自身的宽度，高度
+					var selfWidth = obj.offsetWidth;
+					var selfHeight = obj.offsetHeight;
+					// 被拖拽对象的父元素是body，还是其他元素
+					var parentWidth = 0;
+					var parentHeight = 0;
+					if(obj.offsetParent.nodeName == "BODY"){ // 父节点是body
+						parentHeight = document.documentElement.clientHeight;
+						parentWidth = document.documentElement.clientWidth
+					}else{
+						parentHeight = obj.offsetParent.clientHeight;
+						parentWidth = obj.offsetParent.clientWidth;
+					}
+					var maxWidth = parentWidth - selfWidth;
+					var maxHeight = parentHeight - selfHeight;
+					// top的边界判断
+					if(top < 0 ){
+						top = 0;
+					}else if(top >maxHeight){
+						top = maxHeight
+					}
+					// left的边界判断
+					if(left < 0 ){
+						left = 0;
+					}else if(left > maxWidth){
+						left = maxWidth;
+					}
+					// 如果drag函数，传入了target对象，表示需要做碰撞检查。
+					if(target){
+						
+						// 开始做碰撞检查
+						// 设置obj的位置。 
+						obj.style.top = top + "px";
+						obj.style.left = left + "px";
+						var newTop = top; 
+						var newLeft = left;
+						var t1 = newTop;
+						var t2 = t1 + obj.offsetHeight;
+						var l1 = newLeft;
+						var l2 = l1+obj.offsetWidth;
+						// 碰撞的目标对象： target 
+						var B1 = target.offsetTop
+						var B2 = B1 + target.offsetHeight;
+						var C1 = target.offsetLeft;
+						var C2 = C1 + target.offsetWidth;
+						
+						//判断obj在target的上边，下边，左边，右边，这种情况表示没有撞上。
+						if(t2<B1 || t1>B2 || l2<C1 || l1>C2 ){// 没有撞上,恢复为红色背景色
+							console.log("没撞上")
+							target.style.background = "red";
+						}else{// 撞上，修改背景色为黑色
+							console.log("撞上")
+							target.style.background = "black";
+						}
+						
+					}
+					
+				}
+				// 鼠标的弹起事件，放在document对象上，保证鼠标离开图片之后，弹起事件依然
+				// 能够取消document对象的移动事件。
+				document.onmouseup = function(){
+					document.onmousemove = null;// 取消事件
+				}
+				
+				// *** 取消浏览器默认的拖拽事件发生
+				return false;
+				
+			}
+		}
+		
+		// body的宽，高
+		console.log(document.documentElement.clientHeight);
+		console.log(document.documentElement.clientWidth);
+		
+		// 其他元素： 
+		// obj.clientWidth, obj.clietnHeight
+		
+        // 如果obj的offsetParent是body，那么如下方式获取到的高度是0px
+		console.log("body-h:" + document.body.clientHeight);
+		console.log("body-w:" + document.body.clientWidth);
+		
+	</script>
+</html>

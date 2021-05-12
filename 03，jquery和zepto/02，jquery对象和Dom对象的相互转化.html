@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 100px;
+				height: 100px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+		// 原生js操作
+		var oDiv = document.getElementsByTagName('div')[0]    //oDiv是dom对象
+		oDiv.style.background = 'blue'
+
+		$('div').style.background = ''  //错误
+
+		// jquery的操作
+		$('div').css('background','blue')    //$('div')是jquery的对象
+		$('div').html()
+		
+		// 将dom对象转换成jquery对象
+		$(oDiv).css('background','blue')
+		
+		// 将jquery对象转换成dom对象
+		$('div')[0].style.background = 'blue'
+		$('div').get(0).style.background = 'blue'
+	</script>
+</html>

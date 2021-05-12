@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			table{border: 1px solid azure; background: pink;}
+			td{background: ghostwhite; text-align: center;}
+		</style>
+	</head>
+	<body>
+		<table id="tab">
+			<caption>计算器</caption>
+			<tr>
+				<td colspan="3">
+					<input type="text" id="result"/>
+				</td>
+				<td>
+					<button>c</button>
+				</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+				<td>/</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+				<td>*</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>0</td>
+				<td>.</td>
+				<td>=</td>
+				<td>+</td>
+			</tr>
+		</table>
+		<script type="text/javascript" src="js/myQuery.js" ></script> 
+		<script>
+			// 事件源： 到底是谁发生了某个事件
+			$("tab").onclick = function(e){
+				var ev = e||event;
+				var srcTag = ev.srcElement ; // 将发生事件的事件源对象找出
+				console.log(srcTag.nodeName);
+				
+				// 1. TD
+				//     --- 是运算符号
+				//     --- 是=号
+				//     --- 是数字或.
+				// 2. BUTTON
+				if(srcTag.nodeName == "TD"){
+					 if(srcTag.innerText == "="){
+					 	// 计算，然后将计算结果写入到input输入框
+					 	// eval()函数, 可以计算一个符号数学运算的表达式
+					 	// 如果参数不符合数学运算，那么出现错误
+					 	 // try... catch机制： 捕获异常
+					 	 // string的函数trim()。功能是去掉字符串前后的空字符串。
+					 	 try{
+					 	 	// 如果这部分代码没有错误，则正常运行，catch不执行
+					 	 	// 如果这部分代码出现错误， 则进入到catch中运行
+					 	 	var bds = $("result").value;
+					 	 	var res = eval(bds);
+					 	 	$("result").value = res;
+					 	 }catch(a){
+					 	 	$("result").value = "Error.";
+					 	 }
+					 	 
+					 }else{
+					 	// 除了“=”都是做字符串拼接， 写入到input输入框
+					 	$("result").value += srcTag.innerText.trim();
+					 }
+				}else if(srcTag.nodeName == "BUTTON"){
+					$("result").value = "";
+				}
+			}
+			
+			//console.log(eval(3*3+)); 
+			console.log("     a     b    ".trim()); 
+		</script>
+	</body>
+</html>

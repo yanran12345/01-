@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				position: fixed;
+				top:50px;
+				left: 100px;
+				background: darkred;
+				padding: 50px;
+				height: 300px;
+				width: 150px;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<form action="http://www.baidu.com">
+			关键字：<input type="text" id='word' /><br>
+		  	email：<input type="text" id="email" /> *邮箱地址错误
+			<input type="submit" id="sbt" />
+		</form>
+		<a href="http://www.baidu.com" id="tz">跳转到百度</a>
+		<img src="img/boom.jpg">
+		<!--使用固定定位，设置隐藏，右键的时候显示
+        -->
+		<div id="menu">
+			<span>复制</span><br>
+			<span>粘贴</spanz></span>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/myquery.js" ></script>
+	<script>
+		// 默认事件： onsubmit， a标签的href, 鼠标右键事件(oncontextmenu)， 浏览器的拖拽事件
+		
+		// onsubmit事件是form表单的默认事件。
+		//   ***  类型是submit的input标签，单击的时候，有两个事件发生
+		//        a.onclick , b.onsubmit事件。 并且单击事件先发生，onsubmit后发生
+		//        js中规定： 如果一个对象的事件返回结果为false, 那么后续的其他事件不再执行
+		
+		$("sbt").onclick = function(){
+			alert("sbt的单击事件发生")
+			//console.log("sbt的单击事件发生")
+			return  false;              //就不会发生第二个事件注册跳转到百度的页面
+		}
+		$("tz").onclick = function(){
+			alert("tz 单击")
+			return false;             //就不会发生第二个事件跳转到百度首页的页面
+		}
+		
+		/*document.oncontextmenu = function(){
+			console.log("右键菜单发生")
+			return  false;          //就不会跳出浏览器实际的右键菜单按钮
+		}*/
+		// 练习： 鼠标右键事件，出现菜单
+		
+		document.oncontextmenu = function(e){
+			var ev = e || event;
+			var l = ev.clientX;
+			var t = ev.clientY;
+			$("menu").style.display = "block";
+			$("menu").style.left = l + "px";
+			$("menu").style.top = t + "px";
+			return false;// 阻止浏览单默认事件
+		}
+		document.onclick = function(){
+			$("menu").style.display = "none";
+		}
+	</script>
+</html>

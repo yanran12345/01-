@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				background: skyblue;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="300px" height="300px">  </canvas>
+	</body>
+	<script type="text/javascript">
+		var oCont = document.getElementById('canvas')
+		var context = oCont.getContext('2d')   //获取画布空间
+		
+		context.beginPath()
+		context.moveTo(50,50)
+		context.lineTo(150,150)
+		context.lineTo(250,50)
+		context.lineTo(50,50)
+//		context.strokeStyle = 'red'
+//		context.stroke()
+
+		context.fillStyle = 'red'  //填充颜色
+		context.fill()   //执行填充绘图
+		context.closePath()
+		
+		context.beginPath()
+		context.moveTo(150,150)
+		context.lineTo(250,250)
+		context.lineTo(50,250)
+		context.lineTo(150,150)
+		context.strokeStyle = 'green'
+		context.stroke()
+		context.closePath()
+	</script>
+</html>

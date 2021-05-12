@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 100px;
+				height: 100px;
+				background: seagreen;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="">
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript">
+		$('div').mousedown(function(ev){
+			var x = ev.clientX - $('div').offset().left   //鼠标按下的位置距离div的偏移量
+			var y = ev.clientY - $('div').offset().top
+			$(document).mousemove(function(ev){
+				var X = ev.clientX   //是move事件，每次生成的新的针对于屏幕左上角的偏移量
+				var Y = ev.clientY
+//				console.log(X+','+Y)
+				$('div').css({
+					'left': (X-x)+'px',
+					'top': (Y-y)+'px'
+				})
+			})
+			$(document).mouseup(function(ev){
+				//取消document上面的所有事件
+				$(document).off()
+			})
+		})
+	</script>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<style type="text/css">
+			#clock li{
+				height: 100px;
+				width: 70px;
+				border: 1px solid red;
+				position: relative;
+				float: left;
+				overflow: hidden;
+			}
+			#clock div{
+				/*border: 1px solid blue;*/
+				height: 100px;
+				width: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			#clock li img{
+				height: 100px;
+				width: 100%;
+				position: absolute;
+				left: 0px;
+				top:0px;
+			}
+			/*
+			 * nth-of-type指img中的第二个img
+			 * top:100px呈现的效果是，将div种的第二张图片，隐藏在页面
+			 * 通过js控制，该图片的top值，可以实现图片向上滑动的效果
+			 * 
+			 */
+			#clock div img:nth-of-type(2){
+				top: 100px;
+				border: 10px solid green;
+			}
+			#clock{
+				margin-top: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="clock">
+			<li>
+				<div>
+					<img src="img/time/0.JPG"/>
+					<img src="img/time/0.JPG"/>
+				</div>
+			</li>
+			<li>
+				<div>
+					<img src="img/time/0.JPG"/>
+					<img src="img/time/0.JPG"/>
+				</div>
+			</li>
+			<li>
+				<div>
+					<img src="img/time/colon.JPG"/>
+				</div>
+			</li>
+			<li>
+				<div>
+					<img src="img/time/0.JPG"/>
+					<img src="img/time/0.JPG"/>
+				</div>
+			</li>
+			<li>
+				<div>
+					<img src="img/time/0.JPG"/>
+					<img src="img/time/0.JPG"/>
+				</div>
+			</li>
+			<li>
+				<div>
+					<img src="img/time/colon.JPG"/>
+				</div>
+			</li>
+			<li>
+				<div>
+					<!--div种的两个img，呈现的效果是叠加显示，然后
+					实现再滑动的时候，看不到背景的白色底色-->
+					<img src="img/time/0.JPG"/>
+					<img src="img/time/0.JPG"/>
+				</div>
+			</li>
+			<li>
+				<div id="test">
+					<img src="img/time/0.JPG"/>
+					<img src="img/time/1.JPG"/>
+				</div>
+			</li>
+		</ul>
+	</body>
+	<script type="text/javascript" src="js/myQuery.js" ></script>
+	<script type="text/javascript">
+		// 1. 拼接一个表示当前时间的字符串 -- "15:35:20"
+		
+	    function getTime(time){ // 当前系统时间
+	    	var hour = time.getHours();
+	    	var min = time.getMinutes();
+	    	var sec = time.getSeconds();
+	    	var nowTime = doubleNum(hour)+":"+
+	    	      doubleNum(min)+":"+doubleNum(sec);
+	    		  return nowTime;
+	    }	    	    
+	    console.log(getTime(new Date()));
+	    
+	    
+	    
+	    // 2. 页面数据的初始化处理
+	    var nowTime;
+	    function initHtml(){
+	    	nowTime = getTime(new Date()); //获得此时的时间
+	    	// 所有的div
+	    	var divs = $("clock").getElementsByTagName("div");
+	    	console.log("divs的长度：" + divs.length);
+	    	// 遍历div
+	    	for(var i=0;i<divs.length;i++){
+	    		var imgs=divs[i].getElementsByTagName("img");
+	    		if(i==2 || i==5){ // 处理“：”
+	    			continue;
+	    		}else{// 处理时分秒
+	    			imgs[0].src = "img/time/"+nowTime.charAt(i)+".JPG";
+	    			imgs[1].src = "img/time/"+nowTime.charAt(i)+".JPG";
+	    		}
+	    	}
+	    }
+	    
+	    initHtml(); // 调用方法，完成页面的初始化
+	    
+	    // 3. 每隔一秒，更换页面的数据
+	    // 所有的div
+	    var divs = $("clock").getElementsByTagName("div");
+	    setInterval(function(){
+	    	var nowTime = getTime(new Date);// 每隔的一秒的新数据
+	    	console.log("nowTime:"+ nowTime)
+	    	// 修改div中图片的src地址，同时让图片的消失方式为逐渐上移动
+	    	for(var i=0;i<divs.length;i++){
+	    		if(i == 5 || i==2){
+	    			continue;// 遇到的：则本次循环不做事情
+	    		}
+	    		// 找到图片，然后对图片做动画效果
+	    		var imgs = divs[i].getElementsByTagName("img");
+	    		var txt = nowTime.charAt(i); // 0,1,2,3....
+	    		slide(txt,imgs);
+	    	}
+	    },1000)
+	    
+	    
+	    
+	    function slide(txt,imgs){
+	    	go(imgs[1],"top",-5,0,function(){
+	    			imgs[0].src = 
+	    			   "img/time/"+txt+".JPG";
+	    			imgs[1].src = 
+	    			   "img/time/"+txt+".JPG";
+	    			imgs[1].style.top = "100px";
+	    	})
+	    }
+	    
+	    
+	    
+	    
+	    
+	    
+	    // lis--<li></li> 有三个
+//	    for(var i=0;i<lis.length;i++){
+//	    	lis[i].onclick = function(){
+//	    		console.log(lis[i]);//i=3，数组下标只能取到2
+//	    		// this替代当前被点击的li
+//	    	}
+//	    }
+	    
+	</script>
+</html>
