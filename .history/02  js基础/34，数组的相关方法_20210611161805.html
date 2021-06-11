@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	     //数字是数字,字符串是字符串
+		// 1. 数组的创建
+		var arr1 = ["a","b"];
+		var arr2 = new Array();
+		var arr3 = new Array(5);
+		console.log(arr3.length);
+		var arr4 =  new Array(1,2,3,4);
+		console.log(arr4)  //[1,2,3,4]
+		
+		// 2. 数组内容的清空
+		arr4 = [] ; // 表示清空了
+		
+		// 3. 数组的末尾添加内容：
+		//  push方法，支持，一次添加一个或一次添加多个数组元素
+		arr4.push(100);
+		arr4.push("a","b","c")
+		console.log(arr4);  //[100,"a","b","c"]
+		
+		// 4. 数组的前面插入新的内容
+		arr4.unshift(1,2,3);
+		console.log(arr4);  //[1,2,3,100,"a","b","c"]
+		
+		// 5. 获取到数组的末尾的元素,并且从数组中删除该元素
+		var  end = arr4.pop();
+		console.log(end)   // c
+		console.log(arr4);  //  [1,2,3,100,"a","b"]
+		
+		// 6. 获取数组的第一个元素，并且从数组中删除该元素
+		var begin = arr4.shift();  
+		console.log(begin)  // 1
+		console.log(arr4)  //[2,3,100,"a","b"]
+		
+		// 8.  数组的删除和替换
+		//  spliec(删除指定位置，删除的个数， 替换的数据，替换的数据)
+		//     splice(删除指定位置，删除的个数) -- 从指定位置开始删除，删除指定个数的数组内容。
+		//                                   返回结果为删除掉的内容
+		const arr = [1, 2, 3]
+		const btt = arr.splice(0,1) //删除第一项
+		const crr = arr.splice(0,1,"a") //替换
+		const drr = arr.splice(2, 0, [4, 5])//增加
+		console.log(arr) //[2, 3]
+		console.log(arr)  //["a", 2, 3]
+		console.log(arr)  //[1, 2,[4,5], 3]
+		
+		//9. slice() 方法可从已有的数组中返回选定的元素
+		const arr = [1,2,3]
+		const brr = arr.slice(0,1)
+		const crr = arr.slice(0)
+		const drr = arr.slice(0,-1)
+		console.log(brr)//[1]
+		console.log(crr) //[1,2,3]
+		console.log(drr) //[1,2]
+
+		// 11 . sort()  - 排序
+		function sortNumber(a, b) {
+        return a - b
+    } 
+		const arr = [6, 1564, 15, 234, 4, 345, 1, 5, 35, 48]
+    console.log(arr.sort(sortNumber))//[1, 4, 5, 6, 15, 35, 48, 234, 345, 1564]
+
+		// 12. reverse() - 逆序
+		// 13. concat()  --连接字符串 不改变元素组
+		
+		var arr5 = [1,2,3];
+		console.log(arr4.concat(arr5)); //["hello", 2, 3, "泰坦尼克号", "tom", "kate", "jack", 1, 2, 3]
+		console.log(arr4)  // ["hello", 2, 3, "泰坦尼克号", "tom", "kate", "jack"]
+
+		//14. join 用于把数组中的所有元素放入一个字符串。
+		const arr = [1,2,3]
+		console.log(arr.join(',')) // 1,2,3
+	</script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		// 1. charAt(index) -- 取出字符串中指定位置的字符(不存在的位置，则返回"")
+		console.log("abc".charAt(2));    //c
+		
+		// 2. charCodeAt(index) -- 取出字符串中指定位置的字符的编码
+		console.log("abc".charCodeAt(0));   //97
+		console.log("中国".charCodeAt(0)); // "20013"--utf-8中的编码
+		// utf-8: 字符编码方式 （包含很多国家的语言的编码）
+		// gbk : 汉字编码方式
+
+		// 3. String.fromCharCode(编码) --- 把一个编码，转换为一个字符
+		console.log(String.fromCharCode(28051))   //涓
+		// 文字的加密和解密
+		var str = "忽如一夜春风来，千树万树梨花开。"; 
+		var miwen = "";
+		for(var i=0 ; i < str.length ; i++){
+			miwen +=   String.fromCharCode(str.charCodeAt(i)+1000);
+		}
+		console.log("密文：" + miwen);
+		// 解密
+		var oldStr = "";
+		for(var i=0;i < miwen.length ; i++){
+			oldStr += String.fromCharCode(miwen.charCodeAt(i)-1000);
+		}
+		console.log("解密： "+ oldStr);
+		
+		// 4. indexOf(字符串) --- 找到指定字符串的索引位置。找不到返回-1。找到则返回查找的字符的首字符的位置
+		// 4. indexOf(字符串，索引位置) --- 从指定位置开始查找指定的字符串
+		var str = "昨天晚上我10点就睡觉了，今天中午我12点睡觉， 可是现在我又想睡觉啦！";
+		 console.log(str.indexOf("睡觉"));   //9
+		// 要求： 找到所有的"睡觉"的位置
+		var find = "睡觉"
+		var i = 0;
+		console.log(str.indexOf(find,i));    //找不到值是会返回-1
+		while(str.indexOf(find,i)!=-1){
+			var index = str.indexOf(find,i);
+			console.log("i:" +i);
+			console.log("index：" + index);
+			
+			i = index+find.length;   //  index的值9 21 32 
+		}
+		
+		// 5. substring(begin)   --- 找子字符串， 从指定位置开始，找到结尾
+		// 5. substring(begin,end) -- 从指定位置开始，找到end-1位置
+		//       [begin,end) 包含开始，不包含结尾
+		console.log(str.substring(-3)) // 相当于从0开始查找
+		console.log(str.substring(str.length)) // 找不到
+		console.log(str.substring(-3,5)) // 0~5 
+		
+		// 6.slice  --- 获取字字符串
+		var str = "abcdef";
+		console.log(str.slice(2))  //cdef
+		console.log("------------------")
+		console.log(str.slice(3,4));  //d    前开后闭
+		
+		// 7.split(字符串) --- 按指定字符串，将字符串，分隔为数组
+		// 8. join(字符串) --- 将数组中的元素，按指定字符串拼接
+		// 9.concat()  ---- 拼接字符串 “+”
+		
+		console.log("abc".concat("def"))  //abcdef
+		// 10. toUpperCase() -- 转大写
+		// 11. toLowerCase() -- 转小写
+		console.log("abc".toUpperCase())  //ABC
+		console.log("ABC".toLowerCase())  //abc
+	</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				margin-top: 3000px;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="p1"  onclick="f1()">打开窗口</button>
+		<button id="p2" onclick="f2()">关闭窗口</button>
+    </body>
+		<script>
+		  // DOM :  document object model   --  document对象
+		  // BOM ： browser object model     -- window对象         
+		 
+		 // 1. Bom中常用的函数
+		 	//  prompt()---  输入窗口
+			// prompt("请输入你的年龄")
+		//  confirm()
+			var ok = confirm("确定要离开吗？")
+			if(ok){
+			console.log("你点击了确定按钮， 将会删除xx内容")
+			}else{
+			console.log("你单击了取消按钮了，不会离开")
+			}
+   	// var open = open(url,title,窗口的设置)
+			var open1 ;
+			function f1(){
+				open1 = window.open("http://www.baidu.com","我的窗口")
+			}
+			function f2(){
+				window.close(open1);  //关闭的自己的窗口
+			}
+
+    //  2. history : url历史记录
+			console.log(history.length);  //长度为1
+			history.back(1)//浏览器上的后退按钮的功能
+			history.forward(1);// 浏览器上的前进按钮的功能
+			history.go(1) ;// go支持正数和负数， 集合back，和forward 
+
+		// 3. screen ： 屏幕相关
+		 	console.log(screen.width)  //屏幕的宽度
+		  console.log(screen.availWidth)//可见的宽度
+		  console.log(screen.height)    //屏幕的高度
+		  console.log(screen.availHeight)//可见的高度
+		  
+		// 4. location: 浏览器器的地址栏
+			console.log(location.href);
+		  location.href = "http://www.baidu.com" //直接把打开的浏览器地址改为百度了
+		 
+		// 5. navigator ： 用户的浏览器信息
+		//  -- google : Mozilla/5.0 (Windows NT 6.1; Win64; x64)
+		//             AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36
+		//  -- firefox : Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+		 	console.log(navigator.userAgent);
+		//  ****  如果获取到的用户浏览器信息中“MSIE”这个字符串，就表示是ie浏览器
+			var str = navigator.userAgent;
+			if(str.indexOf("MSIE") != -1){
+				alert("ie浏览器")
+			}else{
+				alert("其他浏览器")
+			}
+		 
+		 // 6. window.onload ---  页面加载完成之后，执行该事件中的内容
+		 
+		 // 7. window.onscroll  --- html页面必须要有滚动条出现，该事件才有效
+			window.onscroll = function(){
+				var tp = document.documentElement.scrollTop;  //可以随时观察到滚动条的top值
+				var lt = document.documentElement.scrollLeft;
+				console.log(tp + ":" + lt);
+			}
+		</script>
+
+</html>
